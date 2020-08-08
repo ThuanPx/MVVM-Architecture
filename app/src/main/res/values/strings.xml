@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MVVM-Architecture</string>
+    <string name="action_ok_en">OK</string>
+    <string name="action_no_en">No</string>
 </resources>

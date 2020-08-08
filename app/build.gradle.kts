@@ -40,14 +40,14 @@ android {
             versionCode = 1
             versionName = "1.0.0"
 
-            buildConfigField("String", "END_POINT", "\"https://api-dev.neo-lab.com/v1/\"")
+            buildConfigField("String", "END_POINT", "\"https://api.github.com/\"")
         }
 
         create("PROD") {
             versionCode = 1
             versionName = "1.0.0"
 
-            buildConfigField("String", "END_POINT", "\"https://api-dev.neo-lab.com/v1/\"")
+            buildConfigField("String", "END_POINT", "\"https://api.github.com/\"")
         }
     }
 
@@ -147,4 +147,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("com.github.ThuanPx:KtExt:1.1.4")
+    implementation("com.airbnb.android:lottie:3.3.1")
 }

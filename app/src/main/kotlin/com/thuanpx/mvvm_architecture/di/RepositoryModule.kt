@@ -1,7 +1,8 @@
 package com.thuanpx.mvvm_architecture.di
 
-import com.thuanpx.mvvm_architecture.data.repository.task.DefaultTaskRepository
-import com.thuanpx.mvvm_architecture.data.repository.task.TaskRepository
+import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
+import com.thuanpx.mvvm_architecture.data.repository.DefaultUserRepository
+import com.thuanpx.mvvm_architecture.data.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideTaskRepository(): TaskRepository {
-        return DefaultTaskRepository()
+    fun provideUserRepository(apiService: ApiService): UserRepository {
+        return DefaultUserRepository(apiService)
     }
 }

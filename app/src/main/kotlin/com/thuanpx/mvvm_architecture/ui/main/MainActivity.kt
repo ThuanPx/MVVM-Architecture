@@ -1,16 +1,23 @@
 package com.thuanpx.mvvm_architecture.ui.main
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.thuanpx.mvvm_architecture.R
+import android.view.LayoutInflater
+import com.thuanpx.ktext.context.replaceFragmentToActivity
+import com.thuanpx.mvvm_architecture.common.base.BaseActivity
+import com.thuanpx.mvvm_architecture.databinding.ActivityMainBinding
+import com.thuanpx.mvvm_architecture.ui.home.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMainBinding {
+        return ActivityMainBinding.inflate(inflater)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initialize() {
+        replaceFragmentToActivity(viewBinding.fragmentContainerView.id, HomeFragment())
+    }
+
+    override fun onSubscribeObserver() {
     }
 }

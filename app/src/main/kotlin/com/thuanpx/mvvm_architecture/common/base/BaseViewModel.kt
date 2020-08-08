@@ -3,10 +3,12 @@ package com.thuanpx.mvvm_architecture.common.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thuanpx.mvvm_architecture.model.exception.ApiException
 import com.thuanpx.mvvm_architecture.utils.DataResult
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.net.HttpURLConnection
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -16,27 +18,32 @@ abstract class BaseViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<SingleEvent<Boolean>>()
     val errorMessage = MutableLiveData<SingleEvent<String>>()
+    val reLogin = MutableLiveData<SingleEvent<Unit>>()
 
     private var loadingCount = 0
 
     /**
      * Calls api with view model scope
      */
-    protected fun <T> withResultViewModelScope(
+    protected fun <T> viewModelScope(
         liveData: MutableLiveData<T>,
         isShowLoading: Boolean = true,
         onRequest: suspend CoroutineScope.() -> DataResult<T>,
-        onSuccess: (() -> Unit)? = null,
+        onSuccess: ((T) -> Unit)? = null,
         onError: (Exception) -> String? = { e -> e.message }
     ) {
         viewModelScope.launch {
             showLoading(isShowLoading)
             when (val asynchronousTasks = onRequest(this)) {
                 is DataResult.Success -> {
-                    onSuccess?.invoke()
-                    liveData.value = asynchronousTasks.data
+                    onSuccess?.invoke(asynchronousTasks.data) ?: kotlin.run {
+                        liveData.value = asynchronousTasks.data
+                    }
                 }
                 is DataResult.Error -> onError(asynchronousTasks.exception)?.let {
+                    if (asynchronousTasks.exception is ApiException && asynchronousTasks.exception.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                        reLogin.value = SingleEvent(Unit)
+                    }
                     errorMessage.value = SingleEvent(it)
                 }
             }
@@ -44,13 +51,13 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    protected fun <T> withResultViewModelScope(
+    protected fun <T> viewModelScope(
         liveData: MutableLiveData<T>,
         isShowLoading: Boolean = true,
         onRequest: suspend CoroutineScope.() -> DataResult<T>,
-        onSuccess: (() -> Unit)? = null
+        onSuccess: ((T) -> Unit)? = null
     ) {
-        withResultViewModelScope(liveData, isShowLoading, onRequest, onSuccess) { it.message }
+        viewModelScope(liveData, isShowLoading, onRequest, onSuccess) { it.message }
     }
 
     protected fun showLoading(isShowLoading: Boolean) {
@@ -65,7 +72,7 @@ abstract class BaseViewModel : ViewModel() {
         if (loadingCount <= 0) {
             // reset loadingCount
             loadingCount = 0
-            isLoading.value = SingleEvent(true)
+            isLoading.value = SingleEvent(false)
         }
     }
 }

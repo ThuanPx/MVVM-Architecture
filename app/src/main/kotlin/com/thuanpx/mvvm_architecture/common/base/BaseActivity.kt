@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -18,7 +22,7 @@ import androidx.viewbinding.ViewBinding
  */
 
 abstract class BaseActivity<viewBinding : ViewBinding> :
-    AppCompatActivity() {
+    AppCompatActivity(), BaseView {
 
     protected lateinit var viewBinding: viewBinding
     abstract fun inflateViewBinding(inflater: LayoutInflater): viewBinding
@@ -26,11 +30,50 @@ abstract class BaseActivity<viewBinding : ViewBinding> :
     protected abstract fun initialize()
     protected abstract fun onSubscribeObserver()
 
+    private lateinit var dialogManager: DialogManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = inflateViewBinding(layoutInflater)
+        dialogManager = DialogManagerImpl(this)
         setContentView(viewBinding.root)
         initialize()
         onSubscribeObserver()
+    }
+
+    override fun showLoading(isShow: Boolean) {
+        if (isShow) showLoading() else hideLoading()
+    }
+
+    override fun showLoading() {
+        dialogManager.showLoading()
+    }
+
+    override fun hideLoading() {
+        dialogManager.hideLoading()
+    }
+
+    override fun showAlertDialog(
+        title: String,
+        message: String,
+        titleButton: String,
+        listener: DialogAlert.Companion.OnButtonClickedListener?
+    ) {
+        dialogManager.showAlertDialog(title, message, titleButton, listener)
+    }
+
+    override fun showConfirmDialog(
+        title: String?,
+        message: String?,
+        titleButtonPositive: String,
+        titleButtonNegative: String,
+        listener: DialogConfirm.OnButtonClickedListener?
+    ) {
+        dialogManager.showConfirmDialog(
+            title, message, titleButtonPositive, titleButtonNegative, listener
+        )
+    }
+
+    private fun baseOnSubscribeObserver() {
     }
 }
