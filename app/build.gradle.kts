@@ -5,8 +5,9 @@ plugins {
     id(Plugins.androidApp)
     kotlin(Plugins.kotlinAndroid)
     kotlin(Plugins.kotlinExt)
-    kotlin(Plugins.kotlinApt)
+    kotlin(Plugins.kapt)
     id(Plugins.hilt)
+    id(Plugins.kotlinApt)
 }
 
 buildscript {
@@ -140,10 +141,10 @@ dependencies {
     kapt(Dependencies.hilt_compiler)
     implementation(Dependencies.hilt_view_model)
     kapt(Dependencies.hilt_androidx_compiler)
+    implementation("androidx.fragment:fragment-ktx:1.2.5")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("com.github.ThuanPx:KtExt:1.1.4")
 }
