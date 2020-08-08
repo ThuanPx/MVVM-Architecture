@@ -1,8 +1,12 @@
 package com.thuanpx.mvvm_architecture.di
 
+import com.thuanpx.mvvm_architecture.data.repository.task.DefaultTaskRepository
+import com.thuanpx.mvvm_architecture.data.repository.task.TaskRepository
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -11,4 +15,11 @@ import dagger.hilt.android.components.ApplicationComponent
 
 @Module
 @InstallIn(ApplicationComponent::class)
-object RepositoryModule
+object RepositoryModule {
+
+    @Singleton
+    @Provides
+    fun provideTaskRepository(): TaskRepository {
+        return DefaultTaskRepository()
+    }
+}
