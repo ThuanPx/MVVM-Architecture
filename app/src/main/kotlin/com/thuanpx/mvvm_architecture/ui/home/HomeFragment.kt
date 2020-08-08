@@ -2,7 +2,6 @@ package com.thuanpx.mvvm_architecture.ui.home
 
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.thuanpx.mvvm_architecture.common.base.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import com.thuanpx.mvvm_architecture.utils.liveData.EventObserver
@@ -14,9 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-
-    private val viewModel by viewModels<HomeViewModel>()
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewModel::class) {
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)

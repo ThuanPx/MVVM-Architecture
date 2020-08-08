@@ -1,5 +1,6 @@
 buildscript {
-    apply(from = "$rootDir/team-props/git-hooks.gradle.kts")
+    // TODO fix later
+    // apply(from = "$rootDir/team-props/git-hooks.gradle.kts")
 
     repositories {
         google()

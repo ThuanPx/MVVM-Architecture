@@ -5,24 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.createViewModelLazy
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
+import kotlin.reflect.KClass
 
 /**
  * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/5/20.
  *
- * @viewModel -> name view model
- * @classViewModel -> class view model
+ * @viewModel -> view model
+ * @viewModelClass -> class view model
  * @viewBinding -> class binding
  * @initialize -> init UI, adapter, listener...
  * @onSubscribeObserver -> subscribe observer live data
  *
  */
 
-abstract class BaseFragment<viewBinding : ViewBinding> : Fragment(), BaseView {
+abstract class BaseFragment<viewModel : ViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
+    Fragment(), BaseView {
 
+    protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
 
@@ -51,11 +56,11 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment(), BaseView {
     }
 
     override fun showLoading() {
-        if (activity is BaseActivity<*>) (activity as BaseActivity<*>).showLoading()
+        (activity as? BaseActivity<*, *>)?.showLoading()
     }
 
     override fun hideLoading() {
-        if (activity is BaseActivity<*>) (activity as BaseActivity<*>).hideLoading()
+        (activity as? BaseActivity<*, *>)?.hideLoading()
     }
 
     override fun showAlertDialog(
@@ -64,7 +69,7 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment(), BaseView {
         titleButton: String,
         listener: DialogAlert.Companion.OnButtonClickedListener?
     ) {
-        (activity as BaseActivity<*>).showAlertDialog(title, message, titleButton, listener)
+        (activity as? BaseActivity<*, *>)?.showAlertDialog(title, message, titleButton, listener)
     }
 
     override fun showConfirmDialog(
@@ -74,7 +79,7 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment(), BaseView {
         titleButtonNegative: String,
         listener: DialogConfirm.OnButtonClickedListener?
     ) {
-        (activity as BaseActivity<*>).showConfirmDialog(
+        (activity as? BaseActivity<*, *>)?.showConfirmDialog(
             title, message, titleButtonPositive, titleButtonNegative, listener
         )
     }
