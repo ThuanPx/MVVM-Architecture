@@ -1,7 +1,8 @@
-package com.thuanpx.mvvm_architecture
+package com.thuanpx.mvvm_architecture.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.thuanpx.mvvm_architecture.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -110,9 +110,6 @@ dependencies {
     implementation(Dependencies.support_core)
     implementation(Dependencies.support_design)
     implementation(Dependencies.constraint_layout)
-    // Rxjava
-    implementation(Dependencies.rx_java)
-    implementation(Dependencies.rx_android)
     // Coroutines
     implementation(Dependencies.coroutines_core)
     implementation(Dependencies.coroutines_android)
@@ -126,9 +123,6 @@ dependencies {
     // Okhttp
     implementation(Dependencies.ok_http)
     implementation(Dependencies.ok_http_logging)
-    // Koin
-    implementation(Dependencies.koin_view_model)
-    implementation(Dependencies.koin_ext)
     // Glide
     implementation(Dependencies.glide)
     annotationProcessor(Dependencies.glide_compiler)
@@ -146,4 +140,10 @@ dependencies {
     kapt(Dependencies.hilt_compiler)
     implementation(Dependencies.hilt_view_model)
     kapt(Dependencies.hilt_androidx_compiler)
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.fragment:fragment-ktx:1.2.5")
+    implementation("com.github.ThuanPx:KtExt:1.1.4")
 }
