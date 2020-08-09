@@ -97,11 +97,8 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
             isLoading.observe(viewLifecycleOwner, Observer {
                 showLoading(it)
             })
-            errorMessage.observe(viewLifecycleOwner, Observer {
-                showAlertDialog(message = it)
-            })
-            reLogin.observe(viewLifecycleOwner, Observer {
-                // TODO reLogin
+            exception.observe(viewLifecycleOwner, Observer {
+                (activity as? BaseActivity<*, *>)?.handleApiError(it)
             })
         }
     }

@@ -21,4 +21,21 @@ class HomeViewModel @ViewModelInject constructor(
             userRepository.searchUser(keyWork, page)
         })
     }
+
+    fun searchUser2(keyWork: String, page: Int = 1) {
+        viewModelScope(users, onRequest = {
+            userRepository.searchUser(keyWork, page)
+        }, onSuccess = { users.value = it })
+    }
+
+    fun searchUser3(keyWork: String, page: Int = 1) {
+        viewModelScope(users,
+            onRequest = {
+                userRepository.searchUser(keyWork, page)
+            },
+            onSuccess = { users.value = it },
+            onError = {
+                exception.value = it
+            })
+    }
 }

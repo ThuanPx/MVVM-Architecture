@@ -3,12 +3,10 @@ package com.thuanpx.mvvm_architecture.common.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thuanpx.mvvm_architecture.model.exception.ApiException
 import com.thuanpx.mvvm_architecture.utils.DataResult
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.net.HttpURLConnection
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -17,8 +15,7 @@ import java.net.HttpURLConnection
 abstract class BaseViewModel : ViewModel() {
 
     val isLoading = SingleLiveData<Boolean>()
-    val errorMessage = SingleLiveData<String>()
-    val reLogin = SingleLiveData<Unit>()
+    val exception = SingleLiveData<Exception>()
 
     private var loadingCount = 0
 
@@ -30,7 +27,7 @@ abstract class BaseViewModel : ViewModel() {
         isShowLoading: Boolean = true,
         onRequest: suspend CoroutineScope.() -> DataResult<T>,
         onSuccess: ((T) -> Unit)? = null,
-        onError: (Exception) -> String? = { e -> e.message }
+        onError: ((Exception) -> Unit)? = null
     ) {
         viewModelScope.launch {
             showLoading(isShowLoading)
@@ -40,24 +37,14 @@ abstract class BaseViewModel : ViewModel() {
                         liveData.value = asynchronousTasks.data
                     }
                 }
-                is DataResult.Error -> onError(asynchronousTasks.exception)?.let {
-                    if (asynchronousTasks.exception is ApiException && asynchronousTasks.exception.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                        reLogin.value = Unit
+                is DataResult.Error -> {
+                    onError?.invoke(asynchronousTasks.exception) ?: kotlin.run {
+                        exception.value = asynchronousTasks.exception
                     }
-                    errorMessage.value = it
                 }
             }
             hideLoading(isShowLoading)
         }
-    }
-
-    protected fun <T> viewModelScope(
-        liveData: MutableLiveData<T>,
-        isShowLoading: Boolean = true,
-        onRequest: suspend CoroutineScope.() -> DataResult<T>,
-        onSuccess: ((T) -> Unit)? = null
-    ) {
-        viewModelScope(liveData, isShowLoading, onRequest, onSuccess) { it.message }
     }
 
     protected fun showLoading(isShowLoading: Boolean) {
