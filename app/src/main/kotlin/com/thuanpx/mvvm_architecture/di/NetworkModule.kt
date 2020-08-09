@@ -82,7 +82,7 @@ object NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    const val READ_TIMEOUT: Long = 30
-    const val WRITE_TIMEOUT: Long = 30
-    const val CONNECTION_TIMEOUT: Long = 30
+    private const val READ_TIMEOUT: Long = 30
+    private const val WRITE_TIMEOUT: Long = 30
+    private const val CONNECTION_TIMEOUT: Long = 30
 }

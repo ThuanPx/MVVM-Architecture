@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  *
  */
 
-abstract class BaseFragment<viewModel : ViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
+abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
     Fragment(), BaseView {
 
     protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
@@ -34,7 +34,6 @@ abstract class BaseFragment<viewModel : ViewModel, viewBinding : ViewBinding>(vi
     abstract fun inflateViewBinding(inflater: LayoutInflater): viewBinding
 
     protected abstract fun initialize()
-    protected abstract fun onSubscribeObserver()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,5 +90,19 @@ abstract class BaseFragment<viewModel : ViewModel, viewBinding : ViewBinding>(vi
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    open fun onSubscribeObserver() {
+        viewModel.run {
+            isLoading.observe(viewLifecycleOwner, Observer {
+                showLoading(it)
+            })
+            errorMessage.observe(viewLifecycleOwner, Observer {
+                showAlertDialog(message = it)
+            })
+            reLogin.observe(viewLifecycleOwner, Observer {
+                // TODO reLogin
+            })
+        }
     }
 }

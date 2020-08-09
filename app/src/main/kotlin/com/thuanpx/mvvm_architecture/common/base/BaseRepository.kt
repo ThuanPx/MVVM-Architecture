@@ -1,13 +1,12 @@
 package com.thuanpx.mvvm_architecture.common.base
 
 import com.thuanpx.mvvm_architecture.utils.DataResult
-import com.thuanpx.mvvm_architecture.utils.liveData.SingleEvent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-abstract class BaseRepository {
+abstract class BaseRepository(private val coroutineDispatcher: CoroutineDispatcher) {
 
     /**
      * Make template code to get DataResult return to ViewModel
@@ -18,13 +17,13 @@ abstract class BaseRepository {
      * Default CoroutineContext is IO for repository
      */
     protected suspend fun <R> withResultContext(
-        context: CoroutineContext = Dispatchers.IO,
+        context: CoroutineContext = coroutineDispatcher,
         requestBlock: suspend CoroutineScope.() -> R,
         errorBlock: (suspend CoroutineScope.(Exception) -> DataResult.Error)? = null
-    ): DataResult<SingleEvent<R>> = withContext(context) {
+    ): DataResult<R> = withContext(context) {
         return@withContext try {
             val response = requestBlock()
-            DataResult.Success(SingleEvent(response))
+            DataResult.Success(response)
         } catch (e: Exception) {
             e.printStackTrace()
             return@withContext errorBlock?.invoke(this, e) ?: DataResult.Error(e)
@@ -32,7 +31,7 @@ abstract class BaseRepository {
     }
 
     protected suspend fun <R> withResultContext(
-        context: CoroutineContext = Dispatchers.IO,
+        context: CoroutineContext = coroutineDispatcher,
         requestBlock: suspend CoroutineScope.() -> R
-    ): DataResult<SingleEvent<R>> = withResultContext(context, requestBlock, null)
+    ): DataResult<R> = withResultContext(context, requestBlock, null)
 }

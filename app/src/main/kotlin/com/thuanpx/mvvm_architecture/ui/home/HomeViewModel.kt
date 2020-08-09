@@ -1,11 +1,10 @@
 package com.thuanpx.mvvm_architecture.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
 import com.thuanpx.mvvm_architecture.common.base.BaseViewModel
 import com.thuanpx.mvvm_architecture.data.repository.UserRepository
 import com.thuanpx.mvvm_architecture.model.entity.User
-import com.thuanpx.mvvm_architecture.utils.liveData.SingleEvent
+import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -15,7 +14,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 
-    val users = MutableLiveData<SingleEvent<List<User>>>()
+    val users = SingleLiveData<List<User>>()
 
     fun searchUser(keyWork: String, page: Int = 1) {
         viewModelScope(users, onRequest = {

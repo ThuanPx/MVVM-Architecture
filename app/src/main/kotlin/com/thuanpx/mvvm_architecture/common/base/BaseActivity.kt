@@ -3,7 +3,7 @@ package com.thuanpx.mvvm_architecture.common.base
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  *
  */
 
-abstract class BaseActivity<viewModel : ViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
+abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
     AppCompatActivity(), BaseView {
 
     private val viewModel by ViewModelLazy(
@@ -35,7 +35,6 @@ abstract class BaseActivity<viewModel : ViewModel, viewBinding : ViewBinding>(vi
     abstract fun inflateViewBinding(inflater: LayoutInflater): viewBinding
 
     protected abstract fun initialize()
-    protected abstract fun onSubscribeObserver()
 
     private lateinit var dialogManager: DialogManager
 
@@ -81,6 +80,17 @@ abstract class BaseActivity<viewModel : ViewModel, viewBinding : ViewBinding>(vi
         )
     }
 
-    private fun baseOnSubscribeObserver() {
+    open fun onSubscribeObserver() {
+        viewModel.run {
+            isLoading.observe(this@BaseActivity, Observer {
+                showLoading(it)
+            })
+            errorMessage.observe(this@BaseActivity, Observer {
+                showAlertDialog(message = it)
+            })
+            reLogin.observe(this@BaseActivity, Observer {
+                // TODO reLogin
+            })
+        }
     }
 }

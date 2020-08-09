@@ -2,9 +2,10 @@ package com.thuanpx.mvvm_architecture.data.repository
 
 import com.thuanpx.mvvm_architecture.common.base.BaseRepository
 import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
+import com.thuanpx.mvvm_architecture.di.IoDispatcher
 import com.thuanpx.mvvm_architecture.model.entity.User
 import com.thuanpx.mvvm_architecture.utils.DataResult
-import com.thuanpx.mvvm_architecture.utils.liveData.SingleEvent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 /**
@@ -13,16 +14,18 @@ import javax.inject.Inject
  */
 
 interface UserRepository {
-    suspend fun searchUser(keyword: String, page: Int = 1): DataResult<SingleEvent<List<User>>>
+    suspend fun searchUser(keyword: String, page: Int = 1): DataResult<List<User>>
 }
 
-class DefaultUserRepository @Inject constructor(private val apiService: ApiService) :
-    UserRepository, BaseRepository() {
+class DefaultUserRepository @Inject constructor(
+    private val apiService: ApiService,
+    @IoDispatcher coroutineDispatcher: CoroutineDispatcher
+) : UserRepository, BaseRepository(coroutineDispatcher) {
 
     override suspend fun searchUser(
         keyword: String,
         page: Int
-    ): DataResult<SingleEvent<List<User>>> {
+    ): DataResult<List<User>> {
         return withResultContext { apiService.searchUser(keyword, page).data }
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thuanpx.mvvm_architecture.model.exception.ApiException
 import com.thuanpx.mvvm_architecture.utils.DataResult
-import com.thuanpx.mvvm_architecture.utils.liveData.SingleEvent
+import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
@@ -16,9 +16,9 @@ import java.net.HttpURLConnection
  */
 abstract class BaseViewModel : ViewModel() {
 
-    val isLoading = MutableLiveData<SingleEvent<Boolean>>()
-    val errorMessage = MutableLiveData<SingleEvent<String>>()
-    val reLogin = MutableLiveData<SingleEvent<Unit>>()
+    val isLoading = SingleLiveData<Boolean>()
+    val errorMessage = SingleLiveData<String>()
+    val reLogin = SingleLiveData<Unit>()
 
     private var loadingCount = 0
 
@@ -42,9 +42,9 @@ abstract class BaseViewModel : ViewModel() {
                 }
                 is DataResult.Error -> onError(asynchronousTasks.exception)?.let {
                     if (asynchronousTasks.exception is ApiException && asynchronousTasks.exception.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                        reLogin.value = SingleEvent(Unit)
+                        reLogin.value = Unit
                     }
-                    errorMessage.value = SingleEvent(it)
+                    errorMessage.value = it
                 }
             }
             hideLoading(isShowLoading)
@@ -63,7 +63,7 @@ abstract class BaseViewModel : ViewModel() {
     protected fun showLoading(isShowLoading: Boolean) {
         if (!isShowLoading) return
         loadingCount++
-        if (isLoading.value?.peekContent() != true) isLoading.value = SingleEvent(true)
+        if (isLoading.value != true) isLoading.value = true
     }
 
     protected fun hideLoading(isShowLoading: Boolean) {
@@ -72,7 +72,7 @@ abstract class BaseViewModel : ViewModel() {
         if (loadingCount <= 0) {
             // reset loadingCount
             loadingCount = 0
-            isLoading.value = SingleEvent(false)
+            isLoading.value = false
         }
     }
 }

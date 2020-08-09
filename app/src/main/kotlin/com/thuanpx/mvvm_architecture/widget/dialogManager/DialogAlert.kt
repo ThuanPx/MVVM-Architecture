@@ -8,14 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.mvvm_architecture.databinding.DialogAlertBinding
 import kotlinx.android.synthetic.main.dialog_alert.*
 
 class DialogAlert : DialogFragment() {
+
+    private var _viewBinding: DialogAlertBinding? = null
+    protected val viewBinding get() = _viewBinding!! // ktlint-disable
+
     var listener: OnButtonClickedListener? = null
     private var title: String? = ""
     private var message: String? = ""
     private var titleBtn: String? = ""
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _viewBinding = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +44,8 @@ class DialogAlert : DialogFragment() {
             )
         }
 
-        return inflater.inflate(R.layout.dialog_alert, container)
+        _viewBinding = DialogAlertBinding.inflate(inflater, container, false)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,16 +64,9 @@ class DialogAlert : DialogFragment() {
             tvTitle.visibility = View.GONE
         }
 
-//        val actionDisposable = RxView.clicks(btnPositive)
-//            .subscribe {
-//                dismiss()
-//                listener?.onPositiveClicked()
-//            }
-//        compositeDisposable.add(actionDisposable)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        viewBinding.btnPositive.setOnClickListener {
+            dismiss(); listener?.onPositiveClicked()
+        }
     }
 
     companion object {
