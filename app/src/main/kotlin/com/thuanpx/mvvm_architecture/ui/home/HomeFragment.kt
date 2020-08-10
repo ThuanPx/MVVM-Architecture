@@ -1,6 +1,7 @@
 package com.thuanpx.mvvm_architecture.ui.home
 
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.thuanpx.mvvm_architecture.common.base.BaseFragment
@@ -15,8 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewModel::class) {
 
-    override fun inflateViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
-        return FragmentHomeBinding.inflate(inflater)
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding {
+        return FragmentHomeBinding.inflate(inflater, container, false)
     }
 
     override fun initialize() {

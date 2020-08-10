@@ -25,9 +25,9 @@ abstract class BaseViewModel : ViewModel() {
     protected fun <T> viewModelScope(
         liveData: MutableLiveData<T>,
         isShowLoading: Boolean = true,
-        onRequest: suspend CoroutineScope.() -> DataResult<T>,
         onSuccess: ((T) -> Unit)? = null,
-        onError: ((Exception) -> Unit)? = null
+        onError: ((Exception) -> Unit)? = null,
+        onRequest: suspend CoroutineScope.() -> DataResult<T>
     ) {
         viewModelScope.launch {
             showLoading(isShowLoading)
@@ -36,6 +36,28 @@ abstract class BaseViewModel : ViewModel() {
                     onSuccess?.invoke(asynchronousTasks.data) ?: kotlin.run {
                         liveData.value = asynchronousTasks.data
                     }
+                }
+                is DataResult.Error -> {
+                    onError?.invoke(asynchronousTasks.exception) ?: kotlin.run {
+                        exception.value = asynchronousTasks.exception
+                    }
+                }
+            }
+            hideLoading(isShowLoading)
+        }
+    }
+
+    protected fun viewModelScope(
+        isShowLoading: Boolean = true,
+        onSuccess: (() -> Unit)? = null,
+        onError: ((Exception) -> Unit)? = null,
+        onRequest: suspend CoroutineScope.() -> DataResult<Any>
+    ) {
+        viewModelScope.launch {
+            showLoading(isShowLoading)
+            when (val asynchronousTasks = onRequest(this)) {
+                is DataResult.Success -> {
+                    onSuccess?.invoke()
                 }
                 is DataResult.Error -> {
                     onError?.invoke(asynchronousTasks.exception) ?: kotlin.run {

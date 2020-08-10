@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.mvvm_architecture.utils.extension.handleDefaultApiError
+import com.thuanpx.mvvm_architecture.utils.liveData.observeLiveData
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import kotlin.reflect.KClass
@@ -31,7 +33,7 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
 
-    abstract fun inflateViewBinding(inflater: LayoutInflater): viewBinding
+    abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): viewBinding
 
     protected abstract fun initialize()
 
@@ -40,7 +42,7 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = inflateViewBinding(inflater)
+        _viewBinding = inflateViewBinding(inflater, container)
         return viewBinding.root
     }
 
@@ -94,12 +96,12 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
 
     open fun onSubscribeObserver() {
         viewModel.run {
-            isLoading.observe(viewLifecycleOwner, Observer {
+            isLoading.observeLiveData(viewLifecycleOwner) {
                 showLoading(it)
-            })
-            exception.observe(viewLifecycleOwner, Observer {
-                (activity as? BaseActivity<*, *>)?.handleApiError(it)
-            })
+            }
+            exception.observeLiveData(viewLifecycleOwner) {
+                (activity as? BaseActivity<*, *>)?.handleDefaultApiError(it)
+            }
         }
     }
 }

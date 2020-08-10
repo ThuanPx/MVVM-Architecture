@@ -17,6 +17,7 @@ package com.thuanpx.mvvm_architecture.utils.liveData
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
@@ -66,4 +67,12 @@ class SingleLiveData<T> : MutableLiveData<T>() {
     fun call() {
         value = null
     }
+}
+
+@MainThread
+inline fun <T> LiveData<T>.observeLiveData(
+    owner: LifecycleOwner,
+    crossinline onChanged: (T) -> Unit
+) {
+    this.observe(owner, Observer { onChanged(it) })
 }

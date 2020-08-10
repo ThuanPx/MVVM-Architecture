@@ -15,6 +15,9 @@
  */
 package com.thuanpx.mvvm_architecture.utils.liveData
 
+import androidx.annotation.MainThread
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 /**
@@ -56,4 +59,12 @@ class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Obser
             onEventUnhandledContent(it)
         }
     }
+}
+
+@MainThread
+inline fun <T> LiveData<SingleEvent<T>>.observeSingleEvent(
+    owner: LifecycleOwner,
+    crossinline onChanged: (T) -> Unit
+) {
+    this.observe(owner, EventObserver { onChanged(it) })
 }

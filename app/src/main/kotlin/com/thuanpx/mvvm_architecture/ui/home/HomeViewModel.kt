@@ -17,9 +17,9 @@ class HomeViewModel @ViewModelInject constructor(
     val users = SingleLiveData<List<User>>()
 
     fun searchUser(keyWork: String, page: Int = 1) {
-        viewModelScope(users, onRequest = {
+        viewModelScope(users) {
             userRepository.searchUser(keyWork, page)
-        })
+        }
     }
 
     fun searchUser2(keyWork: String, page: Int = 1) {
