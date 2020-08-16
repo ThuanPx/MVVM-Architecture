@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.createViewModelLazy
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.utils.extension.handleDefaultApiError
-import com.thuanpx.mvvm_architecture.utils.liveData.observeLiveData
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import kotlin.reflect.KClass
@@ -96,10 +95,10 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
 
     open fun onSubscribeObserver() {
         viewModel.run {
-            isLoading.observeLiveData(viewLifecycleOwner) {
+            isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
             }
-            exception.observeLiveData(viewLifecycleOwner) {
+            exception.observe(viewLifecycleOwner) {
                 (activity as? BaseActivity<*, *>)?.handleDefaultApiError(it)
             }
         }

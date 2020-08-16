@@ -1,8 +1,8 @@
 package com.thuanpx.mvvm_architecture.di
 
 import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
-import com.thuanpx.mvvm_architecture.data.repository.DefaultUserRepository
-import com.thuanpx.mvvm_architecture.data.repository.UserRepository
+import com.thuanpx.mvvm_architecture.data.repository.DefaultPokemonRepository
+import com.thuanpx.mvvm_architecture.data.repository.PokemonRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,10 +21,10 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository(
+    fun providePokemonRepository(
         apiService: ApiService,
         @IoDispatcher coroutineDispatcher: CoroutineDispatcher
-    ): UserRepository {
-        return DefaultUserRepository(apiService, coroutineDispatcher)
+    ): PokemonRepository {
+        return DefaultPokemonRepository(apiService, coroutineDispatcher)
     }
 }

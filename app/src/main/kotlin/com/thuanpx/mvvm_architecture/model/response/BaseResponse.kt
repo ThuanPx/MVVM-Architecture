@@ -8,6 +8,6 @@ import com.google.gson.annotations.SerializedName
  */
 
 class BaseResponse<T>(
-    @SerializedName("total_count") val totalCount: Int,
-    @SerializedName("items") val data: T
+    @SerializedName("count") val count: Int? = null,
+    @SerializedName("results") val data: T
 )

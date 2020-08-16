@@ -40,14 +40,14 @@ android {
             versionCode = 1
             versionName = "1.0.0"
 
-            buildConfigField("String", "END_POINT", "\"https://api.github.com/\"")
+            buildConfigField("String", "END_POINT", "\"https://pokeapi.co/api/v2/\"")
         }
 
         create("PROD") {
             versionCode = 1
             versionName = "1.0.0"
 
-            buildConfigField("String", "END_POINT", "\"https://api.github.com/\"")
+            buildConfigField("String", "END_POINT", "\"https://pokeapi.co/api/v2/\"")
         }
     }
 
@@ -148,4 +148,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("com.github.ThuanPx:KtExt:1.1.4")
     implementation("com.airbnb.android:lottie:3.3.1")
+    implementation("com.github.florent37:glidepalette:2.1.2")
 }

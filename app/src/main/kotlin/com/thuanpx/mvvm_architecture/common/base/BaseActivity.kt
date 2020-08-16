@@ -3,22 +3,14 @@ package com.thuanpx.mvvm_architecture.common.base
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
-import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.utils.extension.handleDefaultApiError
-import com.thuanpx.mvvm_architecture.utils.liveData.observeLiveData
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
-import org.json.JSONObject
-import retrofit2.HttpException
-import timber.log.Timber
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.SocketTimeoutException
 import kotlin.reflect.KClass
 
 /**
@@ -91,11 +83,11 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
 
     open fun onSubscribeObserver() {
         viewModel.run {
-            isLoading.observeLiveData(this@BaseActivity) {
+            isLoading.observe(this@BaseActivity) {
                 showLoading(it)
             }
-            exception.observeLiveData(this@BaseActivity) {
-               handleDefaultApiError(it)
+            exception.observe(this@BaseActivity) {
+                handleDefaultApiError(it)
             }
         }
     }

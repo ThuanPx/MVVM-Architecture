@@ -2,8 +2,8 @@ package com.thuanpx.mvvm_architecture.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import com.thuanpx.mvvm_architecture.common.base.BaseViewModel
-import com.thuanpx.mvvm_architecture.data.repository.UserRepository
-import com.thuanpx.mvvm_architecture.model.entity.User
+import com.thuanpx.mvvm_architecture.data.repository.PokemonRepository
+import com.thuanpx.mvvm_architecture.model.entity.Pokemon
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 
 /**
@@ -11,31 +11,14 @@ import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
  * Created by ThuanPx on 8/8/20.
  */
 class HomeViewModel @ViewModelInject constructor(
-    private val userRepository: UserRepository
+    private val pokemonRepository: PokemonRepository
 ) : BaseViewModel() {
 
-    val users = SingleLiveData<List<User>>()
+    val pokemons = SingleLiveData<List<Pokemon>>()
 
-    fun searchUser(keyWork: String, page: Int = 1) {
-        viewModelScope(users) {
-            userRepository.searchUser(keyWork, page)
+    fun fetchPokemons(page: Int = 0) {
+        viewModelScope(pokemons) {
+            pokemonRepository.fetchPokemons(page)
         }
-    }
-
-    fun searchUser2(keyWork: String, page: Int = 1) {
-        viewModelScope(users, onRequest = {
-            userRepository.searchUser(keyWork, page)
-        }, onSuccess = { users.value = it })
-    }
-
-    fun searchUser3(keyWork: String, page: Int = 1) {
-        viewModelScope(users,
-            onRequest = {
-                userRepository.searchUser(keyWork, page)
-            },
-            onSuccess = { users.value = it },
-            onError = {
-                exception.value = it
-            })
     }
 }
