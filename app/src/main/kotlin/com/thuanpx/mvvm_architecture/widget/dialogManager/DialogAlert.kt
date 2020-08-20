@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.thuanpx.mvvm_architecture.databinding.DialogAlertBinding
+import com.thuanpx.mvvm_architecture.utils.extension.clicks
 import kotlinx.android.synthetic.main.dialog_alert.*
 
 class DialogAlert : DialogFragment() {
@@ -64,7 +65,7 @@ class DialogAlert : DialogFragment() {
             tvTitle.visibility = View.GONE
         }
 
-        viewBinding.btnPositive.setOnClickListener {
+        viewBinding.btnPositive.clicks {
             dismiss(); listener?.onPositiveClicked()
         }
     }
