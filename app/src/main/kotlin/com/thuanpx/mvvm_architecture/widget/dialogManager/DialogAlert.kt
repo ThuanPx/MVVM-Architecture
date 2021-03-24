@@ -7,32 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.fragment.app.DialogFragment
+import com.thuanpx.mvvm_architecture.base.BaseDialogFragment
+import com.thuanpx.mvvm_architecture.base.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.DialogAlertBinding
 import com.thuanpx.mvvm_architecture.utils.extension.clicks
-import kotlinx.android.synthetic.main.dialog_alert.*
 
-class DialogAlert : DialogFragment() {
+class DialogAlert : BaseDialogFragment<EmptyViewModel, DialogAlertBinding>(EmptyViewModel::class) {
 
-    private var _viewBinding: DialogAlertBinding? = null
-    protected val viewBinding get() = _viewBinding!! // ktlint-disable
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): DialogAlertBinding {
+        return DialogAlertBinding.inflate(inflater, container, false)
+    }
 
     var listener: OnButtonClickedListener? = null
     private var title: String? = ""
     private var message: String? = ""
     private var titleBtn: String? = ""
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _viewBinding = null
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun initialize() {
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCanceledOnTouchOutside(false)
+        dialog?.setCancelable(false)
         arguments?.let {
             title = it.getString(
                 TITLE_EXTRA
@@ -45,28 +43,18 @@ class DialogAlert : DialogFragment() {
             )
         }
 
-        _viewBinding = DialogAlertBinding.inflate(inflater, container, false)
-        return viewBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.setCanceledOnTouchOutside(false)
-        dialog?.setCancelable(false)
-
-        tvTitle.text = title
-        tvContent.text = message
-        if (!titleBtn.isNullOrEmpty()) {
-            btnPositive.text = titleBtn
-        }
-        if (!title.isNullOrEmpty()) {
-            tvTitle.visibility = View.GONE
-        }
-
-        viewBinding.btnPositive.clicks {
-            dismiss(); listener?.onPositiveClicked()
+        viewBinding.run {
+            tvTitle.text = title
+            tvContent.text = message
+            if (!titleBtn.isNullOrEmpty()) {
+                btnPositive.text = titleBtn
+            }
+            if (!title.isNullOrEmpty()) {
+                tvTitle.visibility = View.GONE
+            }
+            btnPositive.clicks {
+                dismiss(); listener?.onPositiveClicked()
+            }
         }
     }
 

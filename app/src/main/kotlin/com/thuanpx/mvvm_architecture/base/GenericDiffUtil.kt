@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.common.base
+package com.thuanpx.mvvm_architecture.base
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil

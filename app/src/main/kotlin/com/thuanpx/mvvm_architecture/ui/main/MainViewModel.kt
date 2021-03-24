@@ -1,10 +1,12 @@
 package com.thuanpx.mvvm_architecture.ui.main
 
-import com.thuanpx.mvvm_architecture.common.base.BaseViewModel
-import androidx.hilt.lifecycle.ViewModelInject
+import com.thuanpx.mvvm_architecture.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/8/20.
  */
-class MainViewModel @ViewModelInject constructor() : BaseViewModel()
+@HiltViewModel
+class MainViewModel @Inject constructor() : BaseViewModel()

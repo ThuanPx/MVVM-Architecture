@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.common
+package com.thuanpx.mvvm_architecture.app
 
 /**
  * Copyright © 2020 Neolab VN.

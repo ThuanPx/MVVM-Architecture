@@ -1,15 +1,13 @@
 buildscript {
-     apply(from = "$rootDir/team-props/git-hooks.gradle.kts")
-
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath(ClassPaths.android_gradle_plugin)
-        classpath(ClassPaths.kotlin_gradle_plugin)
-        classpath(ClassPaths.hilt_gradle_plugin)
+        classpath("com.android.tools.build:gradle:4.0.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.31.2-alpha")
     }
 }
 

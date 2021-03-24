@@ -8,7 +8,7 @@ import com.thuanpx.mvvm_architecture.data.remote.api.middleware.InterceptorImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import okhttp3.Cache
@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Singleton

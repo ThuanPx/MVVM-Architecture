@@ -1,6 +1,6 @@
 package com.thuanpx.mvvm_architecture.data.repository
 
-import com.thuanpx.mvvm_architecture.common.base.BaseRepository
+import com.thuanpx.mvvm_architecture.base.BaseRepository
 import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
 import com.thuanpx.mvvm_architecture.di.IoDispatcher
 import com.thuanpx.mvvm_architecture.model.entity.Pokemon

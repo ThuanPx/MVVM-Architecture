@@ -6,15 +6,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import com.thuanpx.ktext.view.gone
+import com.thuanpx.mvvm_architecture.base.BaseDialogFragment
+import com.thuanpx.mvvm_architecture.base.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.DialogConfirmBinding
 import com.thuanpx.mvvm_architecture.utils.extension.clicks
 
-class DialogConfirm : DialogFragment() {
+class DialogConfirm : BaseDialogFragment<EmptyViewModel, DialogConfirmBinding>(EmptyViewModel::class) {
 
-    private var _viewBinding: DialogConfirmBinding? = null
-    protected val viewBinding get() = _viewBinding!! // ktlint-disable
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): DialogConfirmBinding {
+        return DialogConfirmBinding.inflate(inflater, container, false)
+    }
 
     var listener: OnButtonClickedListener? = null
     private var title: String? = ""
@@ -22,17 +27,7 @@ class DialogConfirm : DialogFragment() {
     private var titleBtnPositive: String? = ""
     private var titleBtnNegative: String? = ""
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _viewBinding = null
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun initialize() {
         arguments?.let {
             title = it.getString(
                 TITLE_EXTRA
@@ -47,9 +42,6 @@ class DialogConfirm : DialogFragment() {
                 TITLE_BUTTON_NEGATIVE_EXTRA
             )
         }
-
-        _viewBinding = DialogConfirmBinding.inflate(inflater, container, false)
-        return viewBinding.root
     }
 
     override fun onStart() {

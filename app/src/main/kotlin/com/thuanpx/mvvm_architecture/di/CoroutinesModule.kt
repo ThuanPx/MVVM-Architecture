@@ -3,7 +3,7 @@ package com.thuanpx.mvvm_architecture.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
  * Created by ThuanPx on 8/7/20.
  */
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 object CoroutinesModule {
 
