@@ -2,10 +2,9 @@ package com.thuanpx.mvvm_architecture.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.observe
 import com.thuanpx.ktext.context.addFragmentToActivity
 import com.thuanpx.mvvm_architecture.R
-import com.thuanpx.mvvm_architecture.common.base.BaseFragment
+import com.thuanpx.mvvm_architecture.base.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import com.thuanpx.mvvm_architecture.databinding.ItemHomeBinding
 import com.thuanpx.mvvm_architecture.model.entity.Pokemon

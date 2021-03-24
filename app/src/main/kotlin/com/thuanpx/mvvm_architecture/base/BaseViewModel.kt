@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.common.base
+package com.thuanpx.mvvm_architecture.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

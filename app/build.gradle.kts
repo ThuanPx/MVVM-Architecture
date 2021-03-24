@@ -2,12 +2,13 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 plugins {
-    id(Plugins.androidApp)
-    kotlin(Plugins.kotlinAndroid)
-    kotlin(Plugins.kotlinExt)
-    kotlin(Plugins.kapt)
-    id(Plugins.hilt)
-    id(Plugins.kotlinApt)
+    id("com.android.application")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    id("kotlin-android")
+    id("kotlin-parcelize")
 }
 
 buildscript {
@@ -94,10 +95,6 @@ android {
     }
 }
 
-androidExtensions {
-    isExperimental = true
-}
-
 kapt {
     useBuildCache = true
 }
@@ -105,48 +102,46 @@ kapt {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // Kotlin
-    implementation(Dependencies.kotlin_stdlib)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21")
     // App compat & design
-    implementation(Dependencies.support_app_compat)
-    implementation(Dependencies.support_core)
-    implementation(Dependencies.support_design)
-    implementation(Dependencies.constraint_layout)
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("com.google.android.material:material:1.3.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    // support library
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // Coroutines
-    implementation(Dependencies.coroutines_core)
-    implementation(Dependencies.coroutines_android)
-    // Room
-    implementation(Dependencies.room_runtime)
-    implementation(Dependencies.room_compiler)
-    implementation(Dependencies.room_ktx)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
     // Retrofit
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.retrofit_converter_gson)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Okhttp
-    implementation(Dependencies.ok_http)
-    implementation(Dependencies.ok_http_logging)
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     // Glide
-    implementation(Dependencies.glide)
-    annotationProcessor(Dependencies.glide_compiler)
-    kapt(Dependencies.glide_compiler)
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
     // Leak canary
-    debugImplementation(Dependencies.leak_canary)
+    // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.0")
     // Timber
-    implementation(Dependencies.timber)
+    implementation("com.jakewharton.timber:timber:4.7.1")
     // KTX
-    implementation(Dependencies.support_core_ktx)
-    implementation(Dependencies.view_model_ktx)
-    implementation(Dependencies.live_data_ktx)
-    // Hilt
-    implementation(Dependencies.hilt)
-    kapt(Dependencies.hilt_compiler)
-    implementation(Dependencies.hilt_view_model)
-    kapt(Dependencies.hilt_androidx_compiler)
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
-
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
     implementation("com.github.ThuanPx:KtExt:1.1.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
+    implementation("androidx.activity:activity-ktx:1.3.0-alpha04")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.31.2-alpha")
+    kapt("com.google.dagger:hilt-android-compiler:2.31.2-alpha")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
+    // Other
     implementation("com.airbnb.android:lottie:3.3.1")
     implementation("com.github.florent37:glidepalette:2.1.2")
 }

@@ -6,40 +6,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import com.thuanpx.ktext.view.gone
-import com.thuanpx.mvvm_architecture.R
-import kotlinx.android.synthetic.main.dialog_confirm.*
+import com.thuanpx.mvvm_architecture.base.BaseDialogFragment
+import com.thuanpx.mvvm_architecture.base.EmptyViewModel
+import com.thuanpx.mvvm_architecture.databinding.DialogConfirmBinding
+import com.thuanpx.mvvm_architecture.utils.extension.clicks
 
-class DialogConfirm : DialogFragment() {
+class DialogConfirm : BaseDialogFragment<EmptyViewModel, DialogConfirmBinding>(EmptyViewModel::class) {
+
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): DialogConfirmBinding {
+        return DialogConfirmBinding.inflate(inflater, container, false)
+    }
+
     var listener: OnButtonClickedListener? = null
     private var title: String? = ""
     private var message: String? = ""
     private var titleBtnPositive: String? = ""
     private var titleBtnNegative: String? = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun initialize() {
         arguments?.let {
             title = it.getString(
-                    TITLE_EXTRA
+                TITLE_EXTRA
             )
             message = it.getString(
-                    MESSAGE_EXTRA
+                MESSAGE_EXTRA
             )
             titleBtnPositive = it.getString(
-                    TITLE_BUTTON_POSITIVE_EXTRA
+                TITLE_BUTTON_POSITIVE_EXTRA
             )
             titleBtnNegative = it.getString(
-                    TITLE_BUTTON_NEGATIVE_EXTRA
+                TITLE_BUTTON_NEGATIVE_EXTRA
             )
         }
-
-        return inflater.inflate(R.layout.dialog_confirm, container)
     }
 
     override fun onStart() {
@@ -56,30 +58,18 @@ class DialogConfirm : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvTitle.text = title
-        tvContent.text = message
+        viewBinding.tvTitle.text = title
+        viewBinding.tvContent.text = message
 
-        tvTitle.gone(title.isNullOrBlank())
+        viewBinding.tvTitle.gone(title.isNullOrBlank())
+        viewBinding.tvContent.gone(message.isNullOrBlank())
 
-        tvContent.gone(message.isNullOrBlank())
-
-//        val actionPositiveDis = RxView.clicks(btnPositive)
-//                .subscribe {
-//                    dismiss()
-//                    listener?.onPositiveClicked()
-//                }
-//        compositeDisposable.add(actionPositiveDis)
-//
-//        val actionNegativeDis = RxView.clicks(btnNegative)
-//                .subscribe {
-//                    dismiss()
-//                    listener?.onNegativeClicked()
-//                }
-//        compositeDisposable.add(actionNegativeDis)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        viewBinding.btnPositive.clicks {
+            listener?.onPositiveClicked()
+        }
+        viewBinding.btnNegative.clicks {
+            listener?.onNegativeClicked()
+        }
     }
 
     companion object {
@@ -98,13 +88,17 @@ class DialogConfirm : DialogFragment() {
             return DialogConfirm().apply {
                 arguments = Bundle().apply {
                     putString(
-                            TITLE_EXTRA, title)
+                        TITLE_EXTRA, title
+                    )
                     putString(
-                            MESSAGE_EXTRA, message)
+                        MESSAGE_EXTRA, message
+                    )
                     putString(
-                            TITLE_BUTTON_POSITIVE_EXTRA, titleBtnPositive)
+                        TITLE_BUTTON_POSITIVE_EXTRA, titleBtnPositive
+                    )
                     putString(
-                            TITLE_BUTTON_NEGATIVE_EXTRA, titleBtnNegative)
+                        TITLE_BUTTON_NEGATIVE_EXTRA, titleBtnNegative
+                    )
                 }
                 this.listener = listener
             }

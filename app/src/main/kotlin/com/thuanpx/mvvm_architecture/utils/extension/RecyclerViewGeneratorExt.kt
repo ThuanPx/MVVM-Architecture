@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.thuanpx.mvvm_architecture.common.base.BaseListAdapter
+import com.thuanpx.mvvm_architecture.base.BaseListAdapter
 
 /**
  * Copyright © 2020 Neolab VN.

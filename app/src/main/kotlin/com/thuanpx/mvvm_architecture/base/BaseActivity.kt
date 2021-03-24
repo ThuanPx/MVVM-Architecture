@@ -1,16 +1,20 @@
-package com.thuanpx.mvvm_architecture.common.base
+package com.thuanpx.mvvm_architecture.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelLazy
-import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
-import com.thuanpx.mvvm_architecture.utils.extension.handleDefaultApiError
+import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
+import org.json.JSONObject
+import retrofit2.HttpException
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import kotlin.reflect.KClass
 
 /**
@@ -28,7 +32,7 @@ import kotlin.reflect.KClass
 abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
     AppCompatActivity(), BaseView {
 
-    private val viewModel by ViewModelLazy(
+    protected val viewModel by ViewModelLazy(
         viewModelClass,
         { viewModelStore },
         { defaultViewModelProviderFactory })
@@ -89,6 +93,50 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
             exception.observe(this@BaseActivity) {
                 handleDefaultApiError(it)
             }
+        }
+    }
+
+    fun handleDefaultApiError(apiError: Exception) {
+        when (apiError) {
+            is HttpException -> {
+                getErrorMessage(apiError)?.let {
+                    showAlertDialog(message = it)
+                }
+            }
+            is SocketTimeoutException -> {
+                showAlertDialog(message = getString(R.string.msg_error_time_out))
+            }
+            is IOException -> {
+                showAlertDialog(message = getString(R.string.msg_error_no_internet))
+            }
+            else -> {
+                showAlertDialog(message = getString(R.string.msg_error_data_parse))
+            }
+        }
+    }
+
+    private fun getErrorMessage(e: Exception): String? {
+        val responseBody = (e as HttpException).response()?.errorBody()
+        val errorCode = e.response()?.code()
+        if (errorCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            // TODO reLogin
+        }
+
+        return responseBody?.let {
+            try {
+                // Handle get message error when request api, depend on format json api
+                val jsonObject = JSONObject(responseBody.string())
+                val message = jsonObject.getString("message")
+                if (!message.isNullOrBlank()) {
+                    message
+                } else {
+                    getString(R.string.msg_error_data_parse)
+                }
+            } catch (ex: Exception) {
+                e.message
+            }
+        } ?: kotlin.run {
+            getString(R.string.msg_error_data_parse)
         }
     }
 }

@@ -2,13 +2,12 @@ package com.thuanpx.mvvm_architecture.ui.pokemonDetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.thuanpx.ktext.context.goBackFragment
 import com.thuanpx.ktext.context.withArgs
-import com.thuanpx.mvvm_architecture.common.base.BaseFragment
+import com.thuanpx.mvvm_architecture.base.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentPokemonDetailBinding
 import com.thuanpx.mvvm_architecture.utils.extension.clicks
 import dagger.hilt.android.AndroidEntryPoint
