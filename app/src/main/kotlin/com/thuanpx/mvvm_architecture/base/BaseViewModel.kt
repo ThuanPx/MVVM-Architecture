@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.thuanpx.mvvm_architecture.utils.DataResult
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
@@ -28,13 +29,15 @@ abstract class BaseViewModel : ViewModel() {
         onSuccess: ((T) -> Unit)? = null,
         onError: ((Exception) -> Unit)? = null,
         onRequest: suspend CoroutineScope.() -> DataResult<T>
-    ) {
-        viewModelScope.launch {
-            showLoading(isShowLoading)
+    ): Job {
+        return viewModelScope.launch {
+            if (isShowLoading) showLoading()
             when (val asynchronousTasks = onRequest(this)) {
                 is DataResult.Success -> {
                     onSuccess?.invoke(asynchronousTasks.data) ?: kotlin.run {
-                        liveData.value = asynchronousTasks.data
+                        asynchronousTasks.data?.let {
+                            liveData.value = it
+                        }
                     }
                 }
                 is DataResult.Error -> {
@@ -43,7 +46,29 @@ abstract class BaseViewModel : ViewModel() {
                     }
                 }
             }
-            hideLoading(isShowLoading)
+            if (isShowLoading) hideLoading()
+        }
+    }
+
+    protected fun <T> viewModelScope(
+        isShowLoading: Boolean = true,
+        onSuccess: ((T) -> Unit)? = null,
+        onError: ((Exception) -> Unit)? = null,
+        onRequest: suspend CoroutineScope.() -> DataResult<T>
+    ): Job {
+        return viewModelScope.launch {
+            if (isShowLoading) showLoading()
+            when (val asynchronousTasks = onRequest(this)) {
+                is DataResult.Success -> {
+                    onSuccess?.invoke(asynchronousTasks.data)
+                }
+                is DataResult.Error -> {
+                    onError?.invoke(asynchronousTasks.exception) ?: kotlin.run {
+                        exception.value = asynchronousTasks.exception
+                    }
+                }
+            }
+            if (isShowLoading) hideLoading()
         }
     }
 
@@ -52,9 +77,9 @@ abstract class BaseViewModel : ViewModel() {
         onSuccess: (() -> Unit)? = null,
         onError: ((Exception) -> Unit)? = null,
         onRequest: suspend CoroutineScope.() -> DataResult<Any>
-    ) {
-        viewModelScope.launch {
-            showLoading(isShowLoading)
+    ): Job {
+        return viewModelScope.launch {
+            if (isShowLoading) showLoading()
             when (val asynchronousTasks = onRequest(this)) {
                 is DataResult.Success -> {
                     onSuccess?.invoke()
@@ -65,18 +90,16 @@ abstract class BaseViewModel : ViewModel() {
                     }
                 }
             }
-            hideLoading(isShowLoading)
+            if (isShowLoading) hideLoading()
         }
     }
 
-    protected fun showLoading(isShowLoading: Boolean) {
-        if (!isShowLoading) return
+    protected fun showLoading() {
         loadingCount++
         if (isLoading.value != true) isLoading.value = true
     }
 
-    protected fun hideLoading(isShowLoading: Boolean) {
-        if (!isShowLoading) return
+    protected fun hideLoading() {
         loadingCount--
         if (loadingCount <= 0) {
             // reset loadingCount

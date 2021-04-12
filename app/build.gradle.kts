@@ -16,15 +16,15 @@ buildscript {
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk_version)
-    buildToolsVersion(Versions.build_tools_version)
+    compileSdkVersion(30)
+    buildToolsVersion("29.0.3")
 
     flavorDimensions("default")
 
     defaultConfig {
         applicationId = "com.thuanpx.mvvm_architecture"
-        minSdkVersion(Versions.min_sdk_version)
-        targetSdkVersion(Versions.target_sdk_version)
+        minSdkVersion(21)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1_0"
         vectorDrawables.useSupportLibrary = true
