@@ -4,9 +4,10 @@ import com.thuanpx.mvvm_architecture.utils.DataResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-abstract class BaseRepository(private val coroutineDispatcher: CoroutineDispatcher) {
+abstract class BaseRepository {
 
     /**
      * Make template code to get DataResult return to ViewModel
@@ -17,7 +18,7 @@ abstract class BaseRepository(private val coroutineDispatcher: CoroutineDispatch
      * Default CoroutineContext is IO for repository
      */
     protected suspend fun <R> withResultContext(
-        context: CoroutineContext = coroutineDispatcher,
+        context: CoroutineContext = Dispatchers.IO,
         requestBlock: suspend CoroutineScope.() -> R,
         errorBlock: (suspend CoroutineScope.(Exception) -> DataResult.Error)? = null
     ): DataResult<R> = withContext(context) {
@@ -31,7 +32,7 @@ abstract class BaseRepository(private val coroutineDispatcher: CoroutineDispatch
     }
 
     protected suspend fun <R> withResultContext(
-        context: CoroutineContext = coroutineDispatcher,
+        context: CoroutineContext = Dispatchers.IO,
         requestBlock: suspend CoroutineScope.() -> R
     ): DataResult<R> = withResultContext(context, requestBlock, null)
 }

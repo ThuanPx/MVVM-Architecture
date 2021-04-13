@@ -22,7 +22,7 @@ interface PokemonRepository {
 class DefaultPokemonRepository @Inject constructor(
     private val apiService: ApiService,
     @IoDispatcher coroutineDispatcher: CoroutineDispatcher
-) : PokemonRepository, BaseRepository(coroutineDispatcher) {
+) : PokemonRepository, BaseRepository() {
 
     override suspend fun fetchPokemons(page: Int): DataResult<List<Pokemon>> {
         return withResultContext { apiService.fetchPokemons(page = page).data }
