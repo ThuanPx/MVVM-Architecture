@@ -102,9 +102,9 @@ kapt {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32")
     // App compat & design
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     // support library
@@ -128,19 +128,17 @@ dependencies {
     implementation("com.jakewharton.timber:timber:4.7.1")
     // KTX
     implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
-    implementation("com.github.ThuanPx:KtExt:1.1.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha04")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("com.github.ThuanPx:KtExt:1.4")
+    implementation("androidx.activity:activity-ktx:1.3.0-alpha08")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.31.2-alpha")
-    kapt("com.google.dagger:hilt-android-compiler:2.31.2-alpha")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
+    implementation("com.google.dagger:hilt-android:2.35")
+    kapt("com.google.dagger:hilt-android-compiler:2.35")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
     // Other
     implementation("com.airbnb.android:lottie:3.3.1")
     implementation("com.github.florent37:glidepalette:2.1.2")

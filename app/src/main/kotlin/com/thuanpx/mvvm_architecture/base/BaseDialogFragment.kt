@@ -9,6 +9,8 @@ import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
+import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
 import kotlin.reflect.KClass
 
 /**
@@ -29,6 +31,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
     protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
+    private var dialogManager: DialogManager? = null
 
     abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): viewBinding
 
@@ -45,6 +48,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialogManager = DialogManagerImpl(activity)
         initialize()
         onSubscribeObserver()
     }
@@ -54,11 +58,11 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
     }
 
     override fun showLoading() {
-        (activity as? BaseActivity<*, *>)?.showLoading()
+        dialogManager?.showLoading()
     }
 
     override fun hideLoading() {
-        (activity as? BaseActivity<*, *>)?.hideLoading()
+        dialogManager?.hideLoading()
     }
 
     override fun showAlertDialog(
@@ -67,7 +71,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         titleButton: String,
         listener: DialogAlert.Companion.OnButtonClickedListener?
     ) {
-        (activity as? BaseActivity<*, *>)?.showAlertDialog(title, message, titleButton, listener)
+        dialogManager?.showAlertDialog(title, message, titleButton, listener)
     }
 
     override fun showConfirmDialog(
@@ -77,7 +81,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         titleButtonNegative: String,
         listener: DialogConfirm.OnButtonClickedListener?
     ) {
-        (activity as? BaseActivity<*, *>)?.showConfirmDialog(
+        dialogManager?.showConfirmDialog(
             title, message, titleButtonPositive, titleButtonNegative, listener
         )
     }

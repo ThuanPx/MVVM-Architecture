@@ -41,7 +41,7 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
 
     protected abstract fun initialize()
 
-    private lateinit var dialogManager: DialogManager
+    private var dialogManager: DialogManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +57,11 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
     }
 
     override fun showLoading() {
-        dialogManager.showLoading()
+        dialogManager?.showLoading()
     }
 
     override fun hideLoading() {
-        dialogManager.hideLoading()
+        dialogManager?.hideLoading()
     }
 
     override fun showAlertDialog(
@@ -70,7 +70,7 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
         titleButton: String,
         listener: DialogAlert.Companion.OnButtonClickedListener?
     ) {
-        dialogManager.showAlertDialog(title, message, titleButton, listener)
+        dialogManager?.showAlertDialog(title, message, titleButton, listener)
     }
 
     override fun showConfirmDialog(
@@ -80,7 +80,7 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
         titleButtonNegative: String,
         listener: DialogConfirm.OnButtonClickedListener?
     ) {
-        dialogManager.showConfirmDialog(
+        dialogManager?.showConfirmDialog(
             title, message, titleButtonPositive, titleButtonNegative, listener
         )
     }
