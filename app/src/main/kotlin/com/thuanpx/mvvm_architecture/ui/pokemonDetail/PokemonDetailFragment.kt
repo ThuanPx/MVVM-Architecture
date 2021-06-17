@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
-import com.thuanpx.ktext.context.goBackFragment
 import com.thuanpx.ktext.context.withArgs
 import com.thuanpx.mvvm_architecture.base.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentPokemonDetailBinding
@@ -29,7 +28,7 @@ class PokemonDetailFragment :
 
     override fun initialize() {
         viewBinding.arrow.clicks {
-            activity?.goBackFragment()
+            activity?.onBackPressed()
         }
         viewModel.fetchPokemon(arguments?.getString(EXTRA_NAME) ?: return)
     }

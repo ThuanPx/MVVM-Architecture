@@ -13,6 +13,7 @@ plugins {
 
 buildscript {
     apply(from = "../buildSrc/ktlint.gradle.kts")
+    apply(from = "../autodimension.gradle.kts")
 }
 
 android {
@@ -120,6 +121,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     // Glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
     // Leak canary
@@ -127,18 +129,19 @@ dependencies {
     // Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
     // KTX
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.core:core-ktx:1.5.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation("com.github.ThuanPx:KtExt:1.4")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha08")
+    implementation("androidx.activity:activity-ktx:1.3.0-beta01")
     // Hilt
+//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
+//    kapt("androidx.hilt:hilt-compiler:1.0.0")
     implementation("com.google.dagger:hilt-android:2.35")
     kapt("com.google.dagger:hilt-android-compiler:2.35")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
     // Other
     implementation("com.airbnb.android:lottie:3.3.1")
     implementation("com.github.florent37:glidepalette:2.1.2")
