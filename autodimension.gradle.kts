@@ -105,9 +105,10 @@ abstract class DimenFactory : DefaultTask() {
 tasks.register<DimenFactory>("generateDimen") {
     dimens = listOf(320, 360, 384, 411, 480, 518, 540, 600, 800, 1024, 1280)
     fromDimen = 360
+    maxSize = 1280
     dimenFileName = "values/dimens.xml"
 }
 
-afterEvaluate {
-    tasks["clean"].dependsOn("generateDimen")
-}
+//afterEvaluate {
+//    tasks["clean"].dependsOn("generateDimen")
+//}

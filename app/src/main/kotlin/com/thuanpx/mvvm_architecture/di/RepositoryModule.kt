@@ -1,13 +1,12 @@
 package com.thuanpx.mvvm_architecture.di
 
-import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
-import com.thuanpx.mvvm_architecture.data.repository.DefaultPokemonRepository
-import com.thuanpx.mvvm_architecture.data.repository.PokemonRepository
+import android.app.Application
+import com.thuanpx.mvvm_architecture.data.local.sharedpfers.SharedPrefsImpl
+import com.thuanpx.mvvm_architecture.data.repository.DefaultSharedPrefsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 /**
@@ -21,10 +20,9 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providePokemonRepository(
-        apiService: ApiService,
-        @IoDispatcher coroutineDispatcher: CoroutineDispatcher
-    ): PokemonRepository {
-        return DefaultPokemonRepository(apiService, coroutineDispatcher)
+    fun provideSharedPrefsRepository(
+        application: Application
+    ): DefaultSharedPrefsRepository {
+        return DefaultSharedPrefsRepository(SharedPrefsImpl(application))
     }
 }

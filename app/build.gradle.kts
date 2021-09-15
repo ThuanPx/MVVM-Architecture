@@ -17,15 +17,14 @@ buildscript {
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("29.0.3")
-
+    compileSdk = 31
+    buildToolsVersion = "30.0.3"
     flavorDimensions("default")
 
     defaultConfig {
         applicationId = "com.thuanpx.mvvm_architecture"
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdk = 21
+        targetSdk = 31
         versionCode = 1
         versionName = "1_0"
         vectorDrawables.useSupportLibrary = true
@@ -37,7 +36,7 @@ android {
     }
 
     productFlavors {
-        create("DEV") {
+        create("dev") {
             applicationIdSuffix = ".dev"
             versionCode = 1
             versionName = "1.0.0"
@@ -45,7 +44,7 @@ android {
             buildConfigField("String", "END_POINT", "\"https://pokeapi.co/api/v2/\"")
         }
 
-        create("PROD") {
+        create("prod") {
             versionCode = 1
             versionName = "1.0.0"
 
@@ -56,16 +55,11 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            isShrinkResources = true
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro")
             )
         }
-    }
-
-    dexOptions {
-        javaMaxHeapSize = "4g"
-        preDexLibraries = true
     }
 
     compileOptions {
@@ -94,6 +88,17 @@ android {
         exclude("META-INF/ASL2.0")
         exclude("META-INF/*.kotlin_module")
     }
+
+    applicationVariants.all {
+        val outputFileName = name +
+                "_versionName_${versionName}" +
+                "_versionCode_${versionCode}" +
+                "_time_${SimpleDateFormat("HH_mm_dd_MM_yyyy").format(Calendar.getInstance().time)}.apk"
+        outputs.all {
+            val output = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            output?.outputFileName = outputFileName
+        }
+    }
 }
 
 kapt {
@@ -103,16 +108,16 @@ kapt {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30")
     // App compat & design
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     // support library
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -129,20 +134,17 @@ dependencies {
     // Timber
     implementation("com.jakewharton.timber:timber:4.7.1")
     // KTX
-    implementation("androidx.core:core-ktx:1.5.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.4")
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("com.github.ThuanPx:KtExt:1.4")
-    implementation("androidx.activity:activity-ktx:1.3.0-beta01")
+    implementation("com.github.ThuanPx:KtExt:1.4.1")
+    implementation("androidx.activity:activity-ktx:1.4.0-alpha01")
     // Hilt
-//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
-//    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.35")
-    kapt("com.google.dagger:hilt-android-compiler:2.35")
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
 
     // Other
     implementation("com.airbnb.android:lottie:3.3.1")
-    implementation("com.github.florent37:glidepalette:2.1.2")
 }

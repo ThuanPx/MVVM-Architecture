@@ -28,10 +28,6 @@ abstract class BaseRecyclerViewAdapter<T, V : RecyclerView.ViewHolder>(
         } else dataList[position]
     }
 
-    open fun getDiffUtil(): BaseDiffUtil<T> {
-        return BaseDiffUtil()
-    }
-
     fun getData(): MutableList<T> {
         return dataList
     }
@@ -61,12 +57,6 @@ abstract class BaseRecyclerViewAdapter<T, V : RecyclerView.ViewHolder>(
                 dataList = it
                 notifyDataSetChanged()
             }
-        }
-    }
-
-    fun submitData(newData: MutableList<T>?) {
-        newData?.let {
-            updateData(newData, diffUtilCallback = getDiffUtil().apply { setData(old = getData(), new = newData) })
         }
     }
 

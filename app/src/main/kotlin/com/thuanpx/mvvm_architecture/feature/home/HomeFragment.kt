@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.ui.home
+package com.thuanpx.mvvm_architecture.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,14 +22,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
     }
 
     override fun initialize() {
-        viewModel.fetchPokemons()
     }
 
     override fun onSubscribeObserver() {
         super.onSubscribeObserver()
-        viewModel.run {
-            pokemons.observe(viewLifecycleOwner) {
-            }
-        }
     }
 }

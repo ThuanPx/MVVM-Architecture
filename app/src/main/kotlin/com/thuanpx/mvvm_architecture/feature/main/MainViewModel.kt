@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.ui.main
+package com.thuanpx.mvvm_architecture.feature.main
 
 import com.thuanpx.mvvm_architecture.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
