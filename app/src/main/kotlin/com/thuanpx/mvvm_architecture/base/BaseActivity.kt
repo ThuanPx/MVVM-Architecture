@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.mvvm_architecture.widget.dialog
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
@@ -100,17 +101,25 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
         when (apiError) {
             is HttpException -> {
                 getErrorMessage(apiError)?.let {
-                    showAlertDialog(message = it)
+                    dialog {
+                        message = it
+                    }
                 }
             }
             is SocketTimeoutException -> {
-                showAlertDialog(message = getString(R.string.msg_error_time_out))
+                dialog {
+                    message = getString(R.string.msg_error_time_out)
+                }
             }
             is IOException -> {
-                showAlertDialog(message = getString(R.string.msg_error_no_internet))
+                dialog {
+                    message = getString(R.string.msg_error_no_internet)
+                }
             }
             else -> {
-                showAlertDialog(message = getString(R.string.msg_error_data_parse))
+                dialog {
+                    message = getString(R.string.msg_error_data_parse)
+                }
             }
         }
     }
