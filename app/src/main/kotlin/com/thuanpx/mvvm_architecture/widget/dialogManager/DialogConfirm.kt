@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.thuanpx.ktext.view.clicks
 import com.thuanpx.ktext.view.gone
 import com.thuanpx.mvvm_architecture.base.BaseDialogFragment
 import com.thuanpx.mvvm_architecture.base.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.DialogConfirmBinding
-import com.thuanpx.mvvm_architecture.utils.extension.clicks
 
 class DialogConfirm : BaseDialogFragment<EmptyViewModel, DialogConfirmBinding>(EmptyViewModel::class) {
 

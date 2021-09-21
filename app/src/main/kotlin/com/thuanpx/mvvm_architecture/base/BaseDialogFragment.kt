@@ -1,5 +1,7 @@
 package com.thuanpx.mvvm_architecture.base
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
@@ -51,6 +54,21 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         dialogManager = DialogManagerImpl(activity)
         initialize()
         onSubscribeObserver()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.AppTheme_Dialog)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.let {
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            it.window?.setLayout(width, height)
+        }
     }
 
     override fun showLoading(isShow: Boolean) {
