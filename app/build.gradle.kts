@@ -29,10 +29,6 @@ android {
         versionName = "1_0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        setProperty(
-            "archivesBaseName",
-            "App-${SimpleDateFormat("HH_mm_dd_MM_yyyy").format(Calendar.getInstance().time)}-$versionName"
-        )
     }
 
     productFlavors {

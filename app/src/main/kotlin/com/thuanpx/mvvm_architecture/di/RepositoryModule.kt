@@ -2,6 +2,7 @@ package com.thuanpx.mvvm_architecture.di
 
 import android.app.Application
 import com.thuanpx.mvvm_architecture.data.local.sharedpfers.SharedPrefsImpl
+import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
 import com.thuanpx.mvvm_architecture.data.repository.AppRepository
 import com.thuanpx.mvvm_architecture.data.repository.DefaultAppRepository
 import com.thuanpx.mvvm_architecture.data.repository.DefaultSharedPrefsRepository
@@ -31,7 +32,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideAppRepository(): AppRepository {
-        return DefaultAppRepository()
+    fun provideAppRepository(apiService: ApiService): AppRepository {
+        return DefaultAppRepository(apiService)
     }
 }
