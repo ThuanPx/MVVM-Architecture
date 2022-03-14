@@ -26,7 +26,6 @@ sealed class DataResult<out R> {
 
     data class Success<out T>(val data: T) : DataResult<T>()
     data class Error(val exception: Exception) : DataResult<Nothing>()
-    object Loading : DataResult<Nothing>()
 
     inline fun executeIfSucceed(block: (data: R) -> Unit): DataResult<R> {
         if (this is Success<R>) block(this.data)
@@ -42,7 +41,6 @@ sealed class DataResult<out R> {
         return when (this) {
             is Success -> Success(block(data))
             is Error -> Error(exception)
-            is Loading -> Loading
         }
     }
 
@@ -69,7 +67,6 @@ sealed class DataResult<out R> {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
-            Loading -> "Loading"
         }
     }
 }

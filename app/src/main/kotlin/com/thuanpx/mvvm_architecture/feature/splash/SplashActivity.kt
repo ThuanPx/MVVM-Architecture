@@ -2,11 +2,10 @@ package com.thuanpx.mvvm_architecture.feature.splash
 
 import android.view.LayoutInflater
 import androidx.lifecycle.lifecycleScope
-import com.thuanpx.ktext.context.goTo
 import com.thuanpx.ktext.context.rootTo
 import com.thuanpx.mvvm_architecture.base.BaseActivity
 import com.thuanpx.mvvm_architecture.databinding.ActivitySplashBinding
-import com.thuanpx.mvvm_architecture.feature.main.MainActivity
+import com.thuanpx.mvvm_architecture.feature.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

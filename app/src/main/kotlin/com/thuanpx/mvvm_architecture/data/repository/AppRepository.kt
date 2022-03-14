@@ -1,5 +1,6 @@
 package com.thuanpx.mvvm_architecture.data.repository
 
+import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
 import javax.inject.Inject
 
 /**
@@ -11,6 +12,7 @@ interface AppRepository {
 }
 
 class DefaultAppRepository @Inject constructor(
+    private val apiService: ApiService
 ) : AppRepository {
 
 }
