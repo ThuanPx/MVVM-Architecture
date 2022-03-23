@@ -8,11 +8,8 @@ import javax.inject.Inject
  * Created by ThuanPx on 17/09/2021.
  */
 
-interface AppRepository {
-}
+interface AppRepository
 
 class DefaultAppRepository @Inject constructor(
     private val apiService: ApiService
-) : AppRepository {
-
-}
+) : AppRepository

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.ktext.widget.dialog
 import com.thuanpx.mvvm_architecture.R
-import com.thuanpx.mvvm_architecture.widget.dialog
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager

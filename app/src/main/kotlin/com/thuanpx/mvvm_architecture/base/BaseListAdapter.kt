@@ -38,5 +38,4 @@ abstract class BaseListAdapter<T, VH : RecyclerView.ViewHolder>(
         currentList.removeAt(index)
         submitList(currentList)
     }
-
 }

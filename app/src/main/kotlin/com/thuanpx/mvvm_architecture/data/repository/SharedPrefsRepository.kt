@@ -16,5 +16,4 @@ class DefaultSharedPrefsRepository
     override fun clear() {
         sharedPrefs.clear()
     }
-
 }

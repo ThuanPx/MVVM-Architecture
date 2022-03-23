@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import com.thuanpx.mvvm_architecture.base.BaseFragment
 import com.thuanpx.mvvm_architecture.base.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.FragmentFavoriteBinding
-import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

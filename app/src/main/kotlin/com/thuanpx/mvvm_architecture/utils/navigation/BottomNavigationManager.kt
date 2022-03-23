@@ -5,10 +5,12 @@ import android.os.Looper
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.thuanpx.ktext.AnimationType
+import com.thuanpx.ktext.NONE
+import com.thuanpx.ktext.context.generateTag
+import com.thuanpx.ktext.context.setAnimations
+import com.thuanpx.ktext.context.transact
 import com.thuanpx.ktext.number.nullToZero
-import com.thuanpx.mvvm_architecture.utils.extension.generateTag
-import com.thuanpx.mvvm_architecture.utils.extension.setAnimations
-import com.thuanpx.mvvm_architecture.utils.extension.transact
 
 /**
  * Copyright © 2022 Est Rouge VN.
@@ -84,7 +86,7 @@ class BottomNavigationManager(val builder: Builder) {
         fragment: Fragment,
         isAddFrag: Boolean = false,
         addToBackStack: Boolean = true,
-        animateType: NavAnimateType = NavAnimateType.NONE,
+        @AnimationType animateType: Int = NONE,
         tag: String = fragment::class.java.simpleName
     ) {
         handler.post {
@@ -103,15 +105,14 @@ class BottomNavigationManager(val builder: Builder) {
         fragment: Fragment,
         isAddFrag: Boolean = false,
         addToBackStack: Boolean = true,
-        animateType: NavAnimateType = NavAnimateType.NONE,
+        @AnimationType animateType: Int = NONE,
         tag: String = fragment::class.java.simpleName
     ) {
         if (currentTab == tab) return
 
         val switchFragRoot = getFragmentRoot(tab = tab) ?: return
 
-        mainFragmentManager?.transact {
-            setAnimations(animateType = animateType)
+        mainFragmentManager?.transact(animateType) {
             hide(currentFragmentRoot).show(switchFragRoot)
         }
 

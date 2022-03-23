@@ -12,23 +12,22 @@ plugins {
 }
 
 buildscript {
-    apply(from = "../buildSrc/ktlint.gradle.kts")
+    apply(from = "../ktlint-custom-rules/ktlint.gradle.kts")
     apply(from = "../autodimension.gradle.kts")
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
     buildToolsVersion = "30.0.3"
     flavorDimensions += "default"
 
     defaultConfig {
         applicationId = "com.thuanpx.mvvm_architecture"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
         versionCode = 1
-        versionName = "1_0"
+        versionName = "1.0.0"
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     productFlavors {
@@ -102,6 +101,8 @@ kapt {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    // Kotlin Extension
+    implementation(project((":KtExt")))
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
     // App compat & design
@@ -124,6 +125,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
+    // Gson
+    implementation("com.google.code.gson:gson:2.9.0")
     // Leak canary
     // debugImplementation("com.squareup.leakcanary:leakcanary-android:2.0")
     // Timber
@@ -134,7 +137,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-    implementation("com.github.ThuanPx:KtExt:1.4.5")
     implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha04")
     // Hilt

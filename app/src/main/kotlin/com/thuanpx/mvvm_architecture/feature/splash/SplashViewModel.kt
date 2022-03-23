@@ -9,8 +9,4 @@ import javax.inject.Inject
  * Created by ThuanPx on 16/09/2021.
  */
 @HiltViewModel
-class SplashViewModel @Inject constructor(
-
-) : BaseViewModel() {
-
-}
+class SplashViewModel @Inject constructor() : BaseViewModel()

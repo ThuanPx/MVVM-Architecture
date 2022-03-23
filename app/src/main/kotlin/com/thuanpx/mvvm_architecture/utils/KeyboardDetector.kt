@@ -1,4 +1,4 @@
-package com.neolab.mvvm_architecture.utils
+package com.thuanpx.mvvm_architecture.utils
 
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener

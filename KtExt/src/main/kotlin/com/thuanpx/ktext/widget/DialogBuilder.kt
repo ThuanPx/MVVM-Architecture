@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.widget
+package com.thuanpx.ktext.widget
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,14 +9,41 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.ktext.R
 import com.thuanpx.ktext.view.clicks
 
 /**
  * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 15/09/2021.
  */
+
+fun Fragment.dialog(setup: DialogBuilder.() -> Unit) {
+    val builder = DialogBuilder(requireContext(), setup = setup)
+    builder.build().show()
+}
+
+fun FragmentActivity.dialog(setup: DialogBuilder.() -> Unit) {
+    val builder = DialogBuilder(this, setup = setup)
+    builder.build().show()
+}
+
+data class DialogOptions(
+    val title: String,
+    val message: String,
+    val positiveText: String,
+    val negativeText: String,
+    val positiveListener: (() -> Unit)? = null,
+    val negativeListener: (() -> Unit)? = null,
+    var positiveColor: Int,
+    var negativeColor: Int,
+    var messageColor: Int,
+    var titleColor: Int,
+    val cancelable: Boolean,
+    val isShowNegative: Boolean
+)
+
 @DslMarker
 annotation class DslDialog
 
@@ -39,7 +66,6 @@ class DialogBuilder(
     var cancelable: Boolean = false
     var isShowNegative = false
     private lateinit var dialog: AlertDialog
-
 
     fun build(): AlertDialog {
         setup()
@@ -66,7 +92,6 @@ class DialogBuilder(
         return dialog
     }
 
-
     @SuppressLint("InflateParams")
     private fun setupCustomAlertDialog(options: DialogOptions): AlertDialog {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null)
@@ -86,7 +111,6 @@ class DialogBuilder(
         val tvMessage = view.findViewById<TextView>(R.id.tvMessage)
         tvMessage.text = options.message
         tvMessage.setTextColor(ContextCompat.getColor(context, options.messageColor))
-
 
         val buttonNegative = view.findViewById<TextView>(R.id.btNegative)
         buttonNegative.setTextColor(ContextCompat.getColor(context, options.negativeColor))
@@ -109,32 +133,6 @@ class DialogBuilder(
             }
         }
 
-
         return alertDialog
     }
 }
-
-fun Fragment.dialog(setup: DialogBuilder.() -> Unit) {
-    val builder = DialogBuilder(requireContext(), setup = setup)
-    builder.build().show()
-}
-
-fun Activity.dialog(setup: DialogBuilder.() -> Unit) {
-    val builder = DialogBuilder(this, setup = setup)
-    builder.build().show()
-}
-
-data class DialogOptions(
-    val title: String,
-    val message: String,
-    val positiveText: String,
-    val negativeText: String,
-    val positiveListener: (() -> Unit)? = null,
-    val negativeListener: (() -> Unit)? = null,
-    var positiveColor: Int,
-    var negativeColor: Int,
-    var messageColor: Int,
-    var titleColor: Int,
-    val cancelable: Boolean,
-    val isShowNegative: Boolean
-)

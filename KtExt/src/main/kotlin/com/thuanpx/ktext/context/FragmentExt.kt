@@ -1,5 +1,6 @@
-package com.thuanpx.mvvm_architecture.utils.extension
+package com.thuanpx.ktext.context
 
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -7,14 +8,12 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.thuanpx.mvvm_architecture.R
-import com.thuanpx.mvvm_architecture.utils.navigation.NavAnimateType
+import com.thuanpx.ktext.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
- * Copyright © 2021 Neolab VN.
- * Created by ThuanPx on 15/09/2021.
+ * Created by ThuanPx on 3/15/20.
  */
 
 /**
@@ -39,12 +38,10 @@ fun Fragment.addOrReplaceFragment(
     fragment: Fragment,
     isAddFrag: Boolean,
     addToBackStack: Boolean = true,
-    animateType: NavAnimateType,
+    @AnimationType animateType: Int,
     tag: String = fragment::class.java.simpleName
 ) {
-    fragmentManager?.transact {
-        setAnimations(animateType = animateType)
-
+    fragmentManager?.transact(animateType) {
         if (addToBackStack) {
             addToBackStack(tag)
         }
@@ -57,6 +54,40 @@ fun Fragment.addOrReplaceFragment(
     }
 }
 
+fun Fragment.replaceFragment(
+    @IdRes containerId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean = true,
+    tag: String = fragment::class.java.simpleName,
+    @AnimationType animateType: Int = SLIDE_LEFT
+) {
+    childFragmentManager.transact(animateType) {
+        if (addToBackStack) {
+            addToBackStack(tag)
+        }
+        replace(containerId, fragment, tag)
+    }
+}
+
+fun Fragment.addFragment(
+    @IdRes containerId: Int,
+    fragment: Fragment,
+    addToBackStack: Boolean = true,
+    tag: String = fragment::class.java.simpleName,
+    @AnimationType animateType: Int = SLIDE_LEFT
+) {
+    childFragmentManager.transact(animateType) {
+        if (addToBackStack) {
+            addToBackStack(tag)
+        }
+        add(containerId, fragment, tag)
+    }
+}
+
+fun Fragment.generateTag(): String {
+    return this::class.java.simpleName
+}
+
 fun Fragment.popBackFragment(): Boolean {
     with(parentFragmentManager) {
         val isShowPreviousPage = this.backStackEntryCount > 0
@@ -67,41 +98,44 @@ fun Fragment.popBackFragment(): Boolean {
     }
 }
 
-fun Fragment.generateTag(): String {
-    return this::class.java.simpleName
-}
-
 fun FragmentManager.isExitFragment(tag: String): Boolean {
     return this.findFragmentByTag(tag) != null
 }
 
-fun FragmentTransaction.setAnimations(animateType: NavAnimateType) {
+fun <T : Fragment> T.withArgs(argsBuilder: Bundle.() -> Unit): T =
+    this.apply { arguments = Bundle().apply(argsBuilder) }
+
+/**
+ * Runs a FragmentTransaction, then calls commitAllowingStateLoss().
+ */
+inline fun FragmentManager.transact(
+    @AnimationType animateType: Int = SLIDE_LEFT,
+    action: FragmentTransaction.() -> Unit,
+) {
+    beginTransaction().apply {
+        setAnimations(animateType)
+        action()
+    }.commitAllowingStateLoss()
+}
+
+fun FragmentTransaction.setAnimations(@AnimationType animateType: Int) {
     when (animateType) {
-        NavAnimateType.FADE -> {
+        FADE -> {
             setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
         }
-        NavAnimateType.SLIDE_DOWN -> {
+        SLIDE_DOWN -> {
             setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
         }
-        NavAnimateType.SLIDE_UP -> {
+        SLIDE_UP -> {
             setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
         }
-        NavAnimateType.SLIDE_LEFT -> {
+        SLIDE_LEFT -> {
             setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, 0, 0)
         }
-        NavAnimateType.SLIDE_RIGHT -> {
+        SLIDE_RIGHT -> {
             setCustomAnimations(R.anim.slide_in_right, 0, 0, R.anim.slide_out_right)
         }
         else -> {
         }
     }
-}
-
-/**
- * Runs a FragmentTransaction, then calls commitAllowingStateLoss().
- */
-inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
-    beginTransaction().apply {
-        action()
-    }.commitAllowingStateLoss()
 }
