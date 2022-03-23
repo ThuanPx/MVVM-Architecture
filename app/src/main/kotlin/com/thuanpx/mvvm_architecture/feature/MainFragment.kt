@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.feature.main
+package com.thuanpx.mvvm_architecture.feature
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
