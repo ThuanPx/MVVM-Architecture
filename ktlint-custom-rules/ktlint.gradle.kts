@@ -28,6 +28,6 @@ val ktlintFormat by tasks.creating(JavaExec::class) {
 }
 
 dependencies {
-    ktlint(Dependencies.ktlint)
+    ktlint("com.pinterest:ktlint:0.36.0")
     ktlint(project(":ktlint-custom-rules"))
 }

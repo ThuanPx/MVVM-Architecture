@@ -1,3 +1,6 @@
 rootProject.name = "MVVM-Architecture"
-include(":app")
-include(":ktlint-custom-rules")
+include(
+    ":app",
+    ":ktlint-custom-rules",
+    ":KtExt",
+)

@@ -9,7 +9,4 @@ import javax.inject.Inject
  * Created by ThuanPx on 8/8/20.
  */
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-) : BaseViewModel() {
-
-}
+class HomeViewModel @Inject constructor() : BaseViewModel()

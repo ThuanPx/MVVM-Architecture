@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.thuanpx.ktext.AnimationType
+import com.thuanpx.ktext.context.addOrReplaceFragment
 import com.thuanpx.mvvm_architecture.R
-import com.thuanpx.mvvm_architecture.utils.extension.addOrReplaceFragment
 import timber.log.Timber
 
 @Suppress("DEPRECATION")
@@ -22,7 +23,8 @@ class ContainerFragment : Fragment() {
     }
 
     override fun onCreateView(
-        @NonNull inflater: LayoutInflater, @NonNull container: ViewGroup?,
+        @NonNull inflater: LayoutInflater,
+        @NonNull container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_container, container, false)
@@ -67,13 +69,13 @@ class ContainerFragment : Fragment() {
         fragment: Fragment,
         isAddFrag: Boolean,
         addToBackStack: Boolean,
-        animateType: NavAnimateType,
+        @AnimationType animateType: Int,
         tag: String
     ) {
 
         with(childFragmentManager) {
             val isExitsFragment = findFragmentByTag(tag)
-            Timber.d( "$tag, isExits = $isExitsFragment, isAddFrag = $isAddFrag")
+            Timber.d("$tag, isExits = $isExitsFragment, isAddFrag = $isAddFrag")
             if (isExitsFragment != null) return
 
             addOrReplaceFragment(
@@ -101,6 +103,5 @@ class ContainerFragment : Fragment() {
                 putInt(EXTRA_TAB, tab)
             }
         }
-
     }
 }

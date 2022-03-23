@@ -7,7 +7,6 @@ import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory
 import com.bumptech.glide.load.engine.cache.LruResourceCache
 import com.bumptech.glide.module.AppGlideModule
 
-
 /**
  * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 3/14/22.

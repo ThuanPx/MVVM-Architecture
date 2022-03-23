@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.utils.extension
+package com.thuanpx.ktext.gson
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

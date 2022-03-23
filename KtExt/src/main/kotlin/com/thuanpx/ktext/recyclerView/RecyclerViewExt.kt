@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.utils.extension
+package com.thuanpx.ktext.recyclerView
 
 import android.view.MotionEvent
 import androidx.recyclerview.widget.LinearLayoutManager

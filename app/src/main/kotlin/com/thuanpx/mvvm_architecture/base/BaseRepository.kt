@@ -1,7 +1,6 @@
 package com.thuanpx.mvvm_architecture.base
 
 import com.thuanpx.mvvm_architecture.utils.DataResult
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
