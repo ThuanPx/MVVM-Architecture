@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.ktext.widget.dialog
 import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
@@ -92,60 +93,97 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
                 showLoading(it)
             }
             exception.observe(this@BaseActivity) {
-                handleDefaultApiError(it)
+               handleApiError(it)
             }
         }
     }
 
-    fun handleDefaultApiError(apiError: Exception) {
-        when (apiError) {
-            is HttpException -> {
-                getErrorMessage(apiError)?.let {
-                    dialog {
-                        message = it
-                    }
-                }
-            }
-            is SocketTimeoutException -> {
+    fun handleApiError(throwable: Throwable) {
+        (throwable as? ErrorResponse)?.let { errorResponse ->
+            getErrorMessage(errorResponse)?.let {
                 dialog {
-                    message = getString(R.string.msg_error_time_out)
-                }
-            }
-            is IOException -> {
-                dialog {
-                    message = getString(R.string.msg_error_no_internet)
-                }
-            }
-            else -> {
-                dialog {
-                    message = getString(R.string.msg_error_data_parse)
+                    message = it
                 }
             }
         }
     }
 
-    private fun getErrorMessage(e: Exception): String? {
-        val responseBody = (e as HttpException).response()?.errorBody()
-        val errorCode = e.response()?.code()
-        if (errorCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-            // TODO reLogin
+    private fun getErrorMessage(errorResponse: ErrorResponse): String? {
+        if (errorResponse.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
+            // TODO login
+            return null
         }
-
-        return responseBody?.let {
+        return errorResponse.message?.let {
             try {
                 // Handle get message error when request api, depend on format json api
-                val jsonObject = JSONObject(responseBody.string())
-                val message = jsonObject.getString("message")
+                val jsonObject = JSONObject(it)
+                val message = jsonObject.getString("error")
                 if (!message.isNullOrBlank()) {
                     message
                 } else {
                     getString(R.string.msg_error_data_parse)
                 }
             } catch (ex: Exception) {
-                e.message
+                getString(R.string.msg_error_data_parse)
             }
         } ?: kotlin.run {
             getString(R.string.msg_error_data_parse)
         }
     }
+
+    /**
+     * Old base
+     */
+
+//    fun handleDefaultApiError(apiError: Throwable) {
+//        when (apiError) {
+//            is HttpException -> {
+//                getErrorMessage(apiError)?.let {
+//                    dialog {
+//                        message = it
+//                    }
+//                }
+//            }
+//            is SocketTimeoutException -> {
+//                dialog {
+//                    message = getString(R.string.msg_error_time_out)
+//                }
+//            }
+//            is IOException -> {
+//                dialog {
+//                    message = getString(R.string.msg_error_no_internet)
+//                }
+//            }
+//            else -> {
+//                dialog {
+//                    message = getString(R.string.msg_error_data_parse)
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun getErrorMessage(e: Exception): String? {
+//        val responseBody = (e as HttpException).response()?.errorBody()
+//        val errorCode = e.response()?.code()
+//        if (errorCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+//            // TODO reLogin
+//        }
+//
+//        return responseBody?.let {
+//            try {
+//                // Handle get message error when request api, depend on format json api
+//                val jsonObject = JSONObject(responseBody.string())
+//                val message = jsonObject.getString("message")
+//                if (!message.isNullOrBlank()) {
+//                    message
+//                } else {
+//                    getString(R.string.msg_error_data_parse)
+//                }
+//            } catch (ex: Exception) {
+//                e.message
+//            }
+//        } ?: kotlin.run {
+//            getString(R.string.msg_error_data_parse)
+//        }
+//    }
 }

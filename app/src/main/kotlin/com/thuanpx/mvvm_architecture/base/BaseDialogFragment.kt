@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.ktext.widget.dialog
 import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
@@ -119,7 +121,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
                 showLoading(it)
             }
             exception.observe(viewLifecycleOwner) {
-                (activity as? BaseActivity<*, *>)?.handleDefaultApiError(it)
+                (activity as? BaseActivity<*, *>)?.handleApiError(it)
             }
         }
     }

@@ -19,11 +19,13 @@ import com.thuanpx.ktext.view.clicks
  * Created by ThuanPx on 15/09/2021.
  */
 
+@DslDialog
 fun Fragment.dialog(setup: DialogBuilder.() -> Unit) {
     val builder = DialogBuilder(requireContext(), setup = setup)
     builder.build().show()
 }
 
+@DslDialog
 fun FragmentActivity.dialog(setup: DialogBuilder.() -> Unit) {
     val builder = DialogBuilder(this, setup = setup)
     builder.build().show()

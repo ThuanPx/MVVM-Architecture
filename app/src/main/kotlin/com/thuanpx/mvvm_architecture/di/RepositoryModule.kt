@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 /**
@@ -32,7 +33,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideAppRepository(apiService: ApiService): AppRepository {
-        return DefaultAppRepository(apiService)
+    fun provideAppRepository(apiService: ApiService, @IoDispatcher ioDispatcher: CoroutineDispatcher): AppRepository {
+        return DefaultAppRepository(apiService, ioDispatcher)
     }
 }

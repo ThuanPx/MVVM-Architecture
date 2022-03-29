@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import kotlin.collections.List
 
 plugins {
     id("com.android.application")
@@ -95,6 +96,12 @@ android {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.FlowPreview" + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+    }
+}
+
 kapt {
     useBuildCache = true
 }
@@ -137,10 +144,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-    implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha04")
+    implementation("androidx.activity:activity-ktx:1.6.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.40")
+    implementation("com.google.dagger:hilt-android:2.40.5")
     kapt("com.google.dagger:hilt-android-compiler:2.40")
 
     // Other
