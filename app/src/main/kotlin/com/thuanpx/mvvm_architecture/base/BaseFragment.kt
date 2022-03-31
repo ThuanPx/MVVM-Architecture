@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.ktext.widget.dialog
+import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import kotlin.reflect.KClass
@@ -97,7 +99,7 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
                 showLoading(it)
             }
             exception.observe(viewLifecycleOwner) {
-                (activity as? BaseActivity<*, *>)?.handleDefaultApiError(it)
+                (activity as? BaseActivity<*, *>)?.handleApiError(it)
             }
         }
     }

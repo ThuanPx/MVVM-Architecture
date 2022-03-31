@@ -7,6 +7,7 @@ import com.thuanpx.mvvm_architecture.utils.DataResult
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
 
     val isLoading = SingleLiveData<Boolean>()
-    val exception = SingleLiveData<Exception>()
+    val exception = SingleLiveData<Throwable>()
 
     private var loadingCount = 0
 

@@ -21,7 +21,6 @@ class InterceptorImpl : Interceptor {
         val originRequest = chain.request()
         return originRequest.newBuilder()
             .header("Accept", "application/json")
-            .addHeader("Language", "ja")
             .addHeader("Cache-Control", "no-cache")
             .addHeader("Cache-Control", "no-store")
             // TODO add token header

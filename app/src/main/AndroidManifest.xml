@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="LockedOrientationActivity">
+        android:usesCleartextTraffic="true"
+        tools:ignore="LockedOrientationActivity"
+        tools:targetApi="m">
         <activity
             android:name=".feature.MainActivity"
             android:exported="true"

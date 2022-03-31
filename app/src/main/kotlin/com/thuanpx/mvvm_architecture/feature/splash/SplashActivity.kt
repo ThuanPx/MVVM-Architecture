@@ -23,7 +23,7 @@ class SplashActivity : BaseActivity<SplashViewModel, ActivitySplashBinding>(Spla
 
     override fun initialize() {
         lifecycleScope.launch {
-            delay(2_000)
+            delay(1_000)
             rootTo(MainActivity::class)
         }
     }
