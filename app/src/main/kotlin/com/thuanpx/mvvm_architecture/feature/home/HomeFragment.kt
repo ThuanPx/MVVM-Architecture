@@ -27,6 +27,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
     }
 
     override fun initialize() {
+
         viewModel.page.value++
     }
 
@@ -43,6 +44,5 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
                 }
             }
         }
-
     }
 }

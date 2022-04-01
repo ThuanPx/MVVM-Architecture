@@ -3,6 +3,7 @@ package com.thuanpx.mvvm_architecture.di
 import android.app.Application
 import com.google.gson.Gson
 import com.thuanpx.mvvm_architecture.BuildConfig
+import com.thuanpx.mvvm_architecture.data.local.datastore.PreferenceDataStore
 import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
 import com.thuanpx.mvvm_architecture.data.remote.api.middleware.InterceptorImpl
 import com.thuanpx.mvvm_architecture.utils.coroutines.coroutinesAdapter.CoroutinesResponseCallAdapterFactory
@@ -74,8 +75,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideInterceptor(): Interceptor {
-        return InterceptorImpl()
+    fun provideInterceptor(preferenceDataStore: PreferenceDataStore): Interceptor {
+        return InterceptorImpl(preferenceDataStore)
     }
 
     @Singleton
