@@ -125,13 +125,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.13.0")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-    kapt("com.github.bumptech.glide:compiler:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
+    kapt("com.github.bumptech.glide:compiler:4.13.0")
     // Gson
     implementation("com.google.code.gson:gson:2.9.0")
     // Leak canary
@@ -149,7 +149,8 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.40.5")
     kapt("com.google.dagger:hilt-android-compiler:2.40")
-
-    // Other
+    // Lottie
     implementation("com.airbnb.android:lottie:3.6.1")
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

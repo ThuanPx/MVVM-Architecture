@@ -219,3 +219,9 @@
 # This fixes: Caused by: androidx.fragment.app.Fragment$InstantiationException: Unable to instantiate fragment androidx.navigation.fragment.NavHostFragment: make sure class name exists
 #-------------------------------------------------
 -keepnames class androidx.navigation.fragment.NavHostFragment
+
+##### DataStore #####
+# https://medium.com/androiddevelopers/all-about-preferences-datastore-cc7995679334
+-keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
+    <fields>;
+}
