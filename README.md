@@ -6,6 +6,9 @@
 <p align="center">
 Base project Android with Hilt, Coroutines, Flow, Jetpack (Room, ViewModel), and Material Design based on MVVM architecture.
 </p>
+<p align="center">
+<img src="/images/summary.png"/>
+</p>
 </br>
 
 # Tech stack & Open-source libraries
