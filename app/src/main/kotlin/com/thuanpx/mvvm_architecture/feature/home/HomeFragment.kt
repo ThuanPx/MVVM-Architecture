@@ -2,9 +2,7 @@ package com.thuanpx.mvvm_architecture.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.thuanpx.ktext.context.launchAndRepeatWithViewLifecycle
 import com.thuanpx.mvvm_architecture.base.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,12 +32,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
     override fun onSubscribeObserver() {
         super.onSubscribeObserver()
         with(viewModel) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    launch {
-                        pokemonList.collect {
-                            Timber.i("$it")
-                        }
+            launchAndRepeatWithViewLifecycle {
+                launch {
+                    pokemonList.collect {
+                        Timber.i("$it")
                     }
                 }
             }

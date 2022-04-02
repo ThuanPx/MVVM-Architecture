@@ -153,4 +153,6 @@ dependencies {
     implementation("com.airbnb.android:lottie:3.6.1")
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // Bundler
+    implementation("com.github.skydoves:bundler:1.0.4")
 }

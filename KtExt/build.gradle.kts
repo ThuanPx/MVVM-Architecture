@@ -32,14 +32,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
     // Ktx
     implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha04")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05")
     // App compat & design
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.13.0")
     // Gson
     implementation("com.google.code.gson:gson:2.9.0")
     // Coroutines

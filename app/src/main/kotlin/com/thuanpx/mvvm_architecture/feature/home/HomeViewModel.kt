@@ -1,9 +1,9 @@
 package com.thuanpx.mvvm_architecture.feature.home
 
+import com.thuanpx.ktext.flow.loading
 import com.thuanpx.mvvm_architecture.base.BaseViewModel
 import com.thuanpx.mvvm_architecture.data.repository.AppRepository
 import com.thuanpx.mvvm_architecture.di.IoDispatcher
-import com.thuanpx.mvvm_architecture.utils.extension.loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,16 +1,12 @@
 package com.thuanpx.ktext.context
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.IdRes
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -18,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.thuanpx.ktext.AnimationType
-import com.thuanpx.ktext.Constant
 import com.thuanpx.ktext.SLIDE_LEFT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -37,34 +32,11 @@ inline fun FragmentActivity.launchAndRepeatWithViewLifecycle(
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
     crossinline block: suspend CoroutineScope.() -> Unit
 ) {
-    this.lifecycleScope.launch {
-        this@launchAndRepeatWithViewLifecycle.lifecycle.repeatOnLifecycle(minActiveState) {
+    lifecycleScope.launch {
+       repeatOnLifecycle(minActiveState) {
             block()
         }
     }
-}
-
-fun <T : Activity> FragmentActivity.goTo(
-    cls: KClass<T>,
-    bundle: Bundle? = null,
-    parcel: Parcelable? = null
-) {
-    intent = Intent(this, cls.java)
-    if (bundle != null) intent.putExtra(Constant.KTEXT_EXTRA_ARGS, bundle)
-    if (parcel != null) intent.putExtra(Constant.KTEXT_EXTRA_ARGS, parcel)
-    startActivity(intent)
-}
-
-fun FragmentActivity.rootTo(
-    @NonNull clazz: KClass<out Activity>,
-    args: Bundle? = null
-) {
-    val intent = Intent(this, clazz.java)
-    args?.let {
-        intent.putExtras(it)
-    }
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-    this.startActivity(intent)
 }
 
 fun FragmentActivity.replaceFragment(
