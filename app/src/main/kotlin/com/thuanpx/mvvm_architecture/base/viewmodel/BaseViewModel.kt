@@ -21,6 +21,10 @@ abstract class BaseViewModel : ViewModel() {
     private var loadingCount = 0
 
     /**
+     * Old base
+     */
+
+    /**
      * Calls api with view model scope
      */
     protected fun <T> viewModelScope(
@@ -93,6 +97,10 @@ abstract class BaseViewModel : ViewModel() {
             if (isShowLoading) hideLoading()
         }
     }
+
+    /**
+     * Old base
+     */
 
     protected fun showLoading() {
         loadingCount++

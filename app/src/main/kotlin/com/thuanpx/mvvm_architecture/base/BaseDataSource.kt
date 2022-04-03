@@ -26,7 +26,7 @@ import java.io.IOException
 abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
 
     companion object {
-        private const val STARTING_PAGE_INDEX = 1
+        private const val STARTING_PAGE_INDEX = 0
     }
 
     abstract suspend fun requestMore(nextPage: Int): ApiResponse<BaseResponse<List<T>>>
@@ -45,7 +45,6 @@ abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
             flow<ApiResponse<BaseResponse<List<T>>>> {
                 requestMore(nextPage = pageNumber)
                     .suspendOnSuccessAutoError {
-                        Timber.i("thuan123 ${Thread.currentThread().name}")
                         items = this.data.data
                         // Since 0 is the lowest page number, return null to signify no more pages should
                         prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber.minus(1)

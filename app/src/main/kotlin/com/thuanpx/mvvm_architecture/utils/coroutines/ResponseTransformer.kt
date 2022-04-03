@@ -84,7 +84,7 @@ internal inline fun <T> getCallbackFromOnResultWithContext(
  *
  * @return The encapsulated data or null.
  */
-public fun <T> ApiResponse<T>.getOrNull(): T? {
+public fun <T> ApiResponse<T>.dataOrNull(): T? {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Error -> null
@@ -97,7 +97,7 @@ public fun <T> ApiResponse<T>.getOrNull(): T? {
  *
  * @return The encapsulated data or [defaultValue].
  */
-public fun <T> ApiResponse<T>.getOrElse(defaultValue: T): T {
+public fun <T> ApiResponse<T>.dataOrElse(defaultValue: T): T {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Error -> defaultValue
@@ -110,7 +110,7 @@ public fun <T> ApiResponse<T>.getOrElse(defaultValue: T): T {
  *
  * @return The encapsulated data or [defaultValue].
  */
-public inline fun <T> ApiResponse<T>.getOrElse(defaultValue: () -> T): T {
+public inline fun <T> ApiResponse<T>.dataOrElse(defaultValue: () -> T): T {
     return when (this) {
         is ApiResponse.Success -> data
         is ApiResponse.Error -> defaultValue()
@@ -125,10 +125,10 @@ public inline fun <T> ApiResponse<T>.getOrElse(defaultValue: () -> T): T {
  *
  * @return The encapsulated data.
  */
-public fun <T> ApiResponse<T>.getOrThrow(): T {
+public fun <T> ApiResponse<T>.dataOrException(): T {
     when (this) {
         is ApiResponse.Success -> return data
-        is ApiResponse.Error -> throw exception ?: throw UnknownException(statusCode.code)
+        is ApiResponse.Error -> throw ErrorResponse(this.statusCode.code, this.message)
     }
 }
 
@@ -181,30 +181,15 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnSuccessAutoError(
 }
 
 /**
- * A function that would be executed for handling error responses if the request failed or get an exception.
- *
- * @param onResult The receiver function that receiving [ApiResponse.Failure] if the request failed or get an exception.
- *
- * @return The original [ApiResponse].
- */
-@JvmSynthetic
-public inline fun <T> ApiResponse<T>.onFailure(
-    crossinline onResult: String.() -> Unit
-): ApiResponse<T> {
-    onException { onResult(message()) }
-    return this
-}
-
-/**
  * A suspension function that would be executed for handling error responses if the request failed or get an exception.
  *
- * @param onResult The receiver function that receiving [ApiResponse.Failure] if the request failed or get an exception.
+ * @param onResult The receiver function that receiving [ApiResponse.Error] if the request failed or get an exception.
  *
  * @return The original [ApiResponse].
  */
 @JvmSynthetic
 @SuspensionFunction
-public suspend inline fun <T> ApiResponse<T>.suspendOnFailure(
+public suspend inline fun <T> ApiResponse<T>.suspendOnError(
     crossinline onResult: suspend String.() -> Unit
 ): ApiResponse<T> {
     suspendOnException { onResult(message()) }
@@ -219,7 +204,7 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnFailure(
  * @return The original [ApiResponse].
  */
 @JvmSynthetic
-public inline fun <T> ApiResponse<T>.onException(
+public inline fun <T> ApiResponse<T>.onError(
     crossinline onResult: ApiResponse.Error<T>.() -> Unit
 ): ApiResponse<T> {
     if (this is ApiResponse.Error) {
@@ -248,11 +233,9 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnException(
 
 /**
  * A scope function that will be executed for handling successful, error, exception responses.
- *  This function receives and handles [ApiResponse.onSuccess], [ApiResponse.onError],
- *  and [ApiResponse.onException] in one scope.
+ *  This function receives and handles [ApiResponse.onSuccess], [ApiResponse.onError].
  *
  * @param onSuccess A scope function that would be executed for handling successful responses if the request succeeds.
- * @param onError A scope function that would be executed for handling error responses if the request failed.
  * @param onException A scope function that would be executed for handling exception responses if the request get an exception.
  *
  *  @return The original [ApiResponse].
@@ -263,7 +246,7 @@ public inline fun <T> ApiResponse<T>.onProcedure(
     crossinline onException: ApiResponse.Error<T>.() -> Unit
 ): ApiResponse<T> = apply {
     this.onSuccess(onSuccess)
-    this.onException(onException)
+    this.onError(onException)
 }
 
 /**

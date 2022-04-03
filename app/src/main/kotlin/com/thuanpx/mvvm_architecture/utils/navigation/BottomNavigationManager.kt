@@ -4,11 +4,11 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.thuanpx.ktext.AnimationType
 import com.thuanpx.ktext.NONE
 import com.thuanpx.ktext.context.generateTag
-import com.thuanpx.ktext.context.setAnimations
 import com.thuanpx.ktext.context.transact
 import com.thuanpx.ktext.number.nullToZero
 
@@ -22,7 +22,7 @@ annotation class NavigationManagerDsl
 
 @MainThread
 @NavigationManagerDsl
-inline fun createNavigationManager(
+inline fun FragmentActivity.createNavigationManager(
     block: BottomNavigationManager.Builder.() -> Unit
 ): BottomNavigationManager {
     return BottomNavigationManager.Builder().apply(block).build()

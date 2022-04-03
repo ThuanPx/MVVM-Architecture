@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/tab2"
-        android:icon="@drawable/ic_favorite"
-        android:title="Favorite"/>
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Search"/>
 
 </menu>

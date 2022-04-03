@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.mvvm_architecture.base.BaseActivity
-import com.thuanpx.mvvm_architecture.base.BaseView
 import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
+import com.thuanpx.mvvm_architecture.widget.ProgressDialog
 import kotlin.reflect.KClass
 
 /**
@@ -27,13 +25,15 @@ import kotlin.reflect.KClass
  */
 
 abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
-    Fragment(), BaseView {
+    Fragment() {
 
     protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
 
     abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): viewBinding
+
+    protected var progressDialog: ProgressDialog? = null
 
     protected abstract fun initialize()
 
@@ -48,41 +48,9 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressDialog = ProgressDialog(requireContext())
         initialize()
         onSubscribeObserver()
-    }
-
-    override fun showLoading(isShow: Boolean) {
-        if (isShow) showLoading() else hideLoading()
-    }
-
-    override fun showLoading() {
-        (activity as? BaseActivity<*, *>)?.showLoading()
-    }
-
-    override fun hideLoading() {
-        (activity as? BaseActivity<*, *>)?.hideLoading()
-    }
-
-    override fun showAlertDialog(
-        title: String,
-        message: String,
-        titleButton: String,
-        listener: DialogAlert.Companion.OnButtonClickedListener?
-    ) {
-        (activity as? BaseActivity<*, *>)?.showAlertDialog(title, message, titleButton, listener)
-    }
-
-    override fun showConfirmDialog(
-        title: String?,
-        message: String?,
-        titleButtonPositive: String,
-        titleButtonNegative: String,
-        listener: DialogConfirm.OnButtonClickedListener?
-    ) {
-        (activity as? BaseActivity<*, *>)?.showConfirmDialog(
-            title, message, titleButtonPositive, titleButtonNegative, listener
-        )
     }
 
     /**
@@ -92,6 +60,10 @@ abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    private fun showLoading(isShow: Boolean) {
+        (activity as? BaseActivity<*, *>)?.showLoading(isShow)
     }
 
     open fun onSubscribeObserver() {

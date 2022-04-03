@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.ktext.boolean.isNotTrue
+import com.thuanpx.ktext.boolean.isTrue
 import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.base.BaseActivity
-import com.thuanpx.mvvm_architecture.base.BaseView
 import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
+import com.thuanpx.mvvm_architecture.widget.ProgressDialog
 import kotlin.reflect.KClass
 
 /**
@@ -32,12 +30,12 @@ import kotlin.reflect.KClass
  */
 
 abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
-    DialogFragment(), BaseView {
+    DialogFragment() {
 
     protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
-    private var dialogManager: DialogManager? = null
+    protected var progressDialog: ProgressDialog? = null
 
     abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): viewBinding
 
@@ -54,7 +52,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialogManager = DialogManagerImpl(activity)
+        progressDialog = ProgressDialog(requireContext())
         initialize()
         onSubscribeObserver()
     }
@@ -74,39 +72,6 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         }
     }
 
-    override fun showLoading(isShow: Boolean) {
-        if (isShow) showLoading() else hideLoading()
-    }
-
-    override fun showLoading() {
-        dialogManager?.showLoading()
-    }
-
-    override fun hideLoading() {
-        dialogManager?.hideLoading()
-    }
-
-    override fun showAlertDialog(
-        title: String,
-        message: String,
-        titleButton: String,
-        listener: DialogAlert.Companion.OnButtonClickedListener?
-    ) {
-        dialogManager?.showAlertDialog(title, message, titleButton, listener)
-    }
-
-    override fun showConfirmDialog(
-        title: String?,
-        message: String?,
-        titleButtonPositive: String,
-        titleButtonNegative: String,
-        listener: DialogConfirm.OnButtonClickedListener?
-    ) {
-        dialogManager?.showConfirmDialog(
-            title, message, titleButtonPositive, titleButtonNegative, listener
-        )
-    }
-
     /**
      * Fragments outlive their views. Make sure you clean up any references to
      * the binding class instance in the fragment's onDestroyView() method.
@@ -114,6 +79,10 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    private fun showLoading(isShow: Boolean) {
+        (activity as? BaseActivity<*, *>)?.showLoading(isShow)
     }
 
     open fun onSubscribeObserver() {

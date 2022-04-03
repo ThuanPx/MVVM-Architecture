@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.widget.dialogManager
+package com.thuanpx.mvvm_architecture.widget
 
 import android.app.Dialog
 import android.content.Context
