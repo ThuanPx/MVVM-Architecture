@@ -169,7 +169,7 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnSuccess(
 
 @JvmSynthetic
 @SuspensionFunction
-public suspend inline fun <T> ApiResponse<T>.suspendOnSuccessAndError(
+public suspend inline fun <T> ApiResponse<T>.suspendOnSuccessAutoError(
     crossinline onResult: suspend ApiResponse.Success<T>.() -> Unit
 ): ApiResponse<T> {
     if (this is ApiResponse.Success) {

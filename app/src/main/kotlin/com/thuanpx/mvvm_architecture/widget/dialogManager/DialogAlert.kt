@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.thuanpx.ktext.view.clicks
-import com.thuanpx.mvvm_architecture.base.BaseDialogFragment
-import com.thuanpx.mvvm_architecture.base.EmptyViewModel
+import com.thuanpx.mvvm_architecture.base.fragment.BaseDialogFragment
+import com.thuanpx.mvvm_architecture.base.viewmodel.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.DialogAlertBinding
 
 class DialogAlert : BaseDialogFragment<EmptyViewModel, DialogAlertBinding>(EmptyViewModel::class) {

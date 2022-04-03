@@ -2,8 +2,8 @@ package com.thuanpx.mvvm_architecture.feature.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.thuanpx.mvvm_architecture.base.BaseFragment
-import com.thuanpx.mvvm_architecture.base.EmptyViewModel
+import com.thuanpx.mvvm_architecture.base.fragment.BaseFragment
+import com.thuanpx.mvvm_architecture.base.viewmodel.EmptyViewModel
 import com.thuanpx.mvvm_architecture.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 

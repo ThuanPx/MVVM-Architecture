@@ -48,7 +48,7 @@ fun <T : RecyclerView.Adapter<*>> RecyclerView.initRecyclerViewAdapter(
  * @param yourLayoutManager Pass your own layout manager
  * @param fixedSize isFixed size of recyclerView, default is true*/
 fun <T : RecyclerView.Adapter<*>> RecyclerView.initRecyclerViewAdapter(
-    yourAdapter: T,
+    yourAdapter: T?,
     yourLayoutManager: RecyclerView.LayoutManager,
     fixedSize: Boolean = false
 ) {

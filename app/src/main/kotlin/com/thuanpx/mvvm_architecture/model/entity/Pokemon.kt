@@ -1,5 +1,6 @@
 package com.thuanpx.mvvm_architecture.model.entity
 
+import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -12,6 +13,16 @@ data class Pokemon(
 ) {
     fun getImageUrl(): String {
         val index = url?.split("/".toRegex())?.dropLast(1)?.last()
-        return "https://pokeres.bastionbot.org/images/pokemon/$index.png"
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$index.png"
+    }
+}
+
+object PokemonDiffCallback: DiffUtil.ItemCallback<Pokemon>() {
+    override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
+        return oldItem.name == newItem.name
     }
 }
