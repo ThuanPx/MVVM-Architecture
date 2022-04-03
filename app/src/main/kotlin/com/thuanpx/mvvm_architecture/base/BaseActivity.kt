@@ -7,16 +7,14 @@ import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
 import com.thuanpx.ktext.widget.dialog
 import com.thuanpx.mvvm_architecture.R
+import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
 import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
 import org.json.JSONObject
-import retrofit2.HttpException
-import java.io.IOException
 import java.net.HttpURLConnection
-import java.net.SocketTimeoutException
 import kotlin.reflect.KClass
 
 /**

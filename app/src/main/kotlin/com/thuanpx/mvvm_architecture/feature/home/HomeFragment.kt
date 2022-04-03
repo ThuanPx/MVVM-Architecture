@@ -2,12 +2,14 @@ package com.thuanpx.mvvm_architecture.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.thuanpx.ktext.context.launchAndRepeatWithViewLifecycle
-import com.thuanpx.mvvm_architecture.base.BaseFragment
+import com.thuanpx.ktext.recyclerView.initRecyclerViewAdapter
+import com.thuanpx.mvvm_architecture.base.fragment.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Copyright © 2020 Neolab VN.
@@ -17,6 +19,8 @@ import timber.log.Timber
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewModel::class) {
 
+    private var homeAdapter: HomeAdapter? = null
+
     override fun inflateViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -25,8 +29,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
     }
 
     override fun initialize() {
-
-        viewModel.page.value++
+        initRecyclerView()
     }
 
     override fun onSubscribeObserver() {
@@ -34,11 +37,20 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
         with(viewModel) {
             launchAndRepeatWithViewLifecycle {
                 launch {
-                    pokemonList.collect {
-                        Timber.i("$it")
+                    pagingPokemonFlow.collectLatest {
+                        homeAdapter?.submitData(it)
                     }
                 }
             }
         }
+    }
+
+    private fun initRecyclerView() {
+        homeAdapter = HomeAdapter()
+        viewBinding.rvHome.initRecyclerViewAdapter(
+            homeAdapter,
+            GridLayoutManager(requireContext(), 2),
+            true
+        )
     }
 }

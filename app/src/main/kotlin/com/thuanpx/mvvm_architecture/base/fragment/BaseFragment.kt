@@ -1,42 +1,37 @@
-package com.thuanpx.mvvm_architecture.base
+package com.thuanpx.mvvm_architecture.base.fragment
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
-import com.thuanpx.ktext.widget.dialog
-import com.thuanpx.mvvm_architecture.R
-import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
+import com.thuanpx.mvvm_architecture.base.BaseActivity
+import com.thuanpx.mvvm_architecture.base.BaseView
+import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
 import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
 import kotlin.reflect.KClass
 
 /**
  * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/5/20.
  *
- * @viewModel -> name view model
- * @classViewModel -> class view model
+ * @viewModel -> view model
+ * @viewModelClass -> class view model
  * @viewBinding -> class binding
  * @initialize -> init UI, adapter, listener...
  * @onSubscribeObserver -> subscribe observer live data
  *
  */
 
-abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
-    DialogFragment(), BaseView {
+abstract class BaseFragment<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
+    Fragment(), BaseView {
 
     protected val viewModel by createViewModelLazy(viewModelClass, { viewModelStore })
     private var _viewBinding: viewBinding? = null
     protected val viewBinding get() = _viewBinding!! // ktlint-disable
-    private var dialogManager: DialogManager? = null
 
     abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): viewBinding
 
@@ -53,24 +48,8 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialogManager = DialogManagerImpl(activity)
         initialize()
         onSubscribeObserver()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.AppTheme_Dialog)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.let {
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
-            it.window?.setLayout(width, height)
-        }
     }
 
     override fun showLoading(isShow: Boolean) {
@@ -78,11 +57,11 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
     }
 
     override fun showLoading() {
-        dialogManager?.showLoading()
+        (activity as? BaseActivity<*, *>)?.showLoading()
     }
 
     override fun hideLoading() {
-        dialogManager?.hideLoading()
+        (activity as? BaseActivity<*, *>)?.hideLoading()
     }
 
     override fun showAlertDialog(
@@ -91,7 +70,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         titleButton: String,
         listener: DialogAlert.Companion.OnButtonClickedListener?
     ) {
-        dialogManager?.showAlertDialog(title, message, titleButton, listener)
+        (activity as? BaseActivity<*, *>)?.showAlertDialog(title, message, titleButton, listener)
     }
 
     override fun showConfirmDialog(
@@ -101,7 +80,7 @@ abstract class BaseDialogFragment<viewModel : BaseViewModel, viewBinding : ViewB
         titleButtonNegative: String,
         listener: DialogConfirm.OnButtonClickedListener?
     ) {
-        dialogManager?.showConfirmDialog(
+        (activity as? BaseActivity<*, *>)?.showConfirmDialog(
             title, message, titleButtonPositive, titleButtonNegative, listener
         )
     }

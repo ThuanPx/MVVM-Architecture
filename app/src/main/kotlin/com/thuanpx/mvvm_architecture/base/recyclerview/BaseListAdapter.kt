@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.base
+package com.thuanpx.mvvm_architecture.base.recyclerview
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter

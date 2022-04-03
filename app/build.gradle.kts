@@ -129,6 +129,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     // Glide
     implementation("com.github.bumptech.glide:glide:4.13.0")
+    implementation("com.github.florent37:glidepalette:2.1.2")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
     kapt("com.github.bumptech.glide:compiler:4.13.0")
@@ -155,4 +156,6 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     // Bundler
     implementation("com.github.skydoves:bundler:1.0.4")
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
 }

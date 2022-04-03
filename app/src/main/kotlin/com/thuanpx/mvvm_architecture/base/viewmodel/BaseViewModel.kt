@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.base
+package com.thuanpx.mvvm_architecture.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,6 @@ import com.thuanpx.mvvm_architecture.utils.DataResult
 import com.thuanpx.mvvm_architecture.utils.liveData.SingleLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
