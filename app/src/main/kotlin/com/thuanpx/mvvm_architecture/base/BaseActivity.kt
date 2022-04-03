@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelLazy
 import androidx.viewbinding.ViewBinding
+import com.thuanpx.ktext.boolean.isNotTrue
+import com.thuanpx.ktext.boolean.isTrue
 import com.thuanpx.ktext.widget.dialog
 import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
 import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogAlert
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogConfirm
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManager
-import com.thuanpx.mvvm_architecture.widget.dialogManager.DialogManagerImpl
+import com.thuanpx.mvvm_architecture.widget.ProgressDialog
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import kotlin.reflect.KClass
@@ -30,7 +29,7 @@ import kotlin.reflect.KClass
  */
 
 abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding>(viewModelClass: KClass<viewModel>) :
-    AppCompatActivity(), BaseView {
+    AppCompatActivity() {
 
     protected val viewModel by ViewModelLazy(
         viewModelClass,
@@ -39,50 +38,25 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
     protected lateinit var viewBinding: viewBinding
     abstract fun inflateViewBinding(inflater: LayoutInflater): viewBinding
 
-    protected abstract fun initialize()
+    protected var progressDialog: ProgressDialog? = null
 
-    private var dialogManager: DialogManager? = null
+    protected abstract fun initialize()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = inflateViewBinding(layoutInflater)
-        dialogManager = DialogManagerImpl(this)
+        progressDialog = ProgressDialog(this)
         setContentView(viewBinding.root)
         initialize()
         onSubscribeObserver()
     }
 
-    override fun showLoading(isShow: Boolean) {
-        if (isShow) showLoading() else hideLoading()
-    }
-
-    override fun showLoading() {
-        dialogManager?.showLoading()
-    }
-
-    override fun hideLoading() {
-        dialogManager?.hideLoading()
-    }
-
-    override fun showAlertDialog(
-        title: String,
-        message: String,
-        titleButton: String,
-        listener: DialogAlert.Companion.OnButtonClickedListener?
-    ) {
-        dialogManager?.showAlertDialog(title, message, titleButton, listener)
-    }
-
-    override fun showConfirmDialog(
-        title: String?,
-        message: String?,
-        titleButtonPositive: String,
-        titleButtonNegative: String,
-        listener: DialogConfirm.OnButtonClickedListener?
-    ) {
-        dialogManager?.showConfirmDialog(
-            title, message, titleButtonPositive, titleButtonNegative, listener
-        )
+    fun showLoading(isShow: Boolean) {
+        if (isShow && progressDialog?.isShowing.isNotTrue()) {
+            progressDialog?.show()
+        } else if (progressDialog?.isShowing.isTrue()) {
+            progressDialog?.dismiss()
+        }
     }
 
     open fun onSubscribeObserver() {
@@ -91,7 +65,7 @@ abstract class BaseActivity<viewModel : BaseViewModel, viewBinding : ViewBinding
                 showLoading(it)
             }
             exception.observe(this@BaseActivity) {
-               handleApiError(it)
+                handleApiError(it)
             }
         }
     }

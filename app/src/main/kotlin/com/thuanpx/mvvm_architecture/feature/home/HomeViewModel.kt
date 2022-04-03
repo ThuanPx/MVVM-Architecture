@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : BaseViewModel() {
 
-    val pagingPokemonFlow = appRepository.fetchPokemon2(isLoading)
+    val pagingPokemonFlow = appRepository.fetchPokemon(isLoading)
         .cachedIn(viewModelScope)
 
 

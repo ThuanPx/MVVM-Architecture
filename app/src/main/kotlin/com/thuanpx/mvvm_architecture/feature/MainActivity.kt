@@ -5,8 +5,8 @@ import com.google.android.material.navigation.NavigationBarView
 import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.base.BaseActivity
 import com.thuanpx.mvvm_architecture.databinding.ActivityMainBinding
-import com.thuanpx.mvvm_architecture.feature.favorite.FavoriteFragment
 import com.thuanpx.mvvm_architecture.feature.home.HomeFragment
+import com.thuanpx.mvvm_architecture.feature.search.SearchFragment
 import com.thuanpx.mvvm_architecture.utils.navigation.BottomNavigationManager
 import com.thuanpx.mvvm_architecture.utils.navigation.createNavigationManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +20,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(MainViewMo
     }
 
     private val homeFragment = HomeFragment()
-    private val favoriteFragment = FavoriteFragment()
+    private val searchFragment = SearchFragment()
 
     val bottomNavigationManager: BottomNavigationManager by lazy {
         createNavigationManager {
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(MainViewMo
             bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.tab1 -> bottomNavigationManager.switchTab(tab = TAB1, fragment = homeFragment)
-                    R.id.tab2 -> bottomNavigationManager.switchTab(tab = TAB2, fragment = favoriteFragment)
+                    R.id.tab2 -> bottomNavigationManager.switchTab(tab = TAB2, fragment = searchFragment)
                 }
                 return@OnItemSelectedListener true
             })
