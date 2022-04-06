@@ -12,7 +12,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/1/22.
  */
 

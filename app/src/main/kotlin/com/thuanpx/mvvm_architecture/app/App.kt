@@ -6,7 +6,6 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/7/20.
  */
 

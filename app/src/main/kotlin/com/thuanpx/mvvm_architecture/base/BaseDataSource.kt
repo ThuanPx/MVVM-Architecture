@@ -19,7 +19,6 @@ import java.io.IOException
 
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/3/22.
  */
 

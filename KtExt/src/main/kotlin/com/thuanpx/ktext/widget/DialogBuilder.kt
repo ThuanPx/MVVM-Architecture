@@ -15,7 +15,6 @@ import com.thuanpx.ktext.R
 import com.thuanpx.ktext.view.clicks
 
 /**
- * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 15/09/2021.
  */
 

@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.gson.annotations.SerializedName
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/13/20.
  */
 data class Pokemon(

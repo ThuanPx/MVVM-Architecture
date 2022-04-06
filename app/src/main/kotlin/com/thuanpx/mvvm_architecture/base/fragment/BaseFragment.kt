@@ -13,7 +13,6 @@ import com.thuanpx.mvvm_architecture.widget.ProgressDialog
 import kotlin.reflect.KClass
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/5/20.
  *
  * @viewModel -> view model

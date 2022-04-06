@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/8/20.
  */
 

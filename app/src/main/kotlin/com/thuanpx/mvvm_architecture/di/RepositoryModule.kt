@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/7/20.
  */
 

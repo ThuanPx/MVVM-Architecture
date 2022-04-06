@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/15/20.
  */
 

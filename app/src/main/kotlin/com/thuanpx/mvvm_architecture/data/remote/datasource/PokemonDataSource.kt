@@ -8,7 +8,6 @@ import com.thuanpx.mvvm_architecture.model.response.BaseResponse
 import com.thuanpx.mvvm_architecture.utils.coroutines.ApiResponse
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/3/22.
  */
 class PokemonDataSource(

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/8/20.
  */
 

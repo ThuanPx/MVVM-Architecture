@@ -13,7 +13,6 @@ import com.thuanpx.ktext.context.transact
 import com.thuanpx.ktext.number.nullToZero
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 3/13/22.
  */
 

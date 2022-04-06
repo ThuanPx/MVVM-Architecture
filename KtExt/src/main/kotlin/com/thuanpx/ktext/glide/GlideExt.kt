@@ -5,7 +5,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 3/23/22.
  */
 

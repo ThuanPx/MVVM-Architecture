@@ -15,7 +15,6 @@ import com.thuanpx.mvvm_architecture.model.entity.PokemonDiffCallback
 
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/3/22.
  */
 class HomeAdapter : PagingDataAdapter<Pokemon, ItemViewHolder>(PokemonDiffCallback) {
