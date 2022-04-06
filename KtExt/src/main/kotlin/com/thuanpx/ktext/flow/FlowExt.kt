@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/2/22.
  */
 

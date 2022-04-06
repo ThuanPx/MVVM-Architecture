@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
- * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 17/09/2021.
  */
 

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 10/08/2021.
  */
 abstract class BaseListAdapter<T, VH : RecyclerView.ViewHolder>(

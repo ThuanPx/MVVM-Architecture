@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 4/3/22.
  */
 @HiltViewModel

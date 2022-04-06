@@ -12,7 +12,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 16/09/2021.
  */
 @SuppressLint("CustomSplashScreen")

@@ -10,7 +10,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/5/20.
  */
 abstract class BaseViewModel : ViewModel() {

@@ -5,7 +5,6 @@ import com.pinterest.ktlint.core.ast.ElementType.EXCLEXCL
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 7/17/20.
  */
 

@@ -12,7 +12,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/5/20.
  */
 interface ApiService {

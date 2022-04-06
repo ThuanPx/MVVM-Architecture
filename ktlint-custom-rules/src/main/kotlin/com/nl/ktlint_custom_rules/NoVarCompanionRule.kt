@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 7/12/20.
  */
 class NoVarCompanionRule : Rule("no-var-companion") {

@@ -1,7 +1,6 @@
 package com.thuanpx.mvvm_architecture.utils.coroutines.exceptions
 
 /**
- * Copyright © 2022 Est Rouge VN.
  * Created by ThuanPx on 3/29/22.
  */
 class UnknownException constructor(

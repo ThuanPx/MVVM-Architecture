@@ -21,7 +21,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Copyright © 2020 Neolab VN.
  * Created by ThuanPx on 8/7/20.
  */
 

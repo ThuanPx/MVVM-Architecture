@@ -4,7 +4,6 @@
 package com.thuanpx.ktext.string
 
 /**
- * Copyright © 2022 Neolab VN.
  * Created by ThuanPx on 24/01/2022.
  */
 

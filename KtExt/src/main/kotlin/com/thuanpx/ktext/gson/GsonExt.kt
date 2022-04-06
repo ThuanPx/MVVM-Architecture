@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
- * Copyright © 2021 Neolab VN.
  * Created by ThuanPx on 24/12/2021.
  */
 
