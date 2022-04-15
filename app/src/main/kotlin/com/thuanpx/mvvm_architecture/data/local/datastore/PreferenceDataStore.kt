@@ -18,7 +18,6 @@ import javax.inject.Singleton
 interface PreferenceDataStore {
     suspend fun token(token: String)
     val token: Flow<String>
-
 }
 
 @Singleton

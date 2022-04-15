@@ -35,7 +35,7 @@
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
@@ -48,8 +48,8 @@
         <!-- This is important! Don't forget to set window background -->
 
         <!-- Additionally if you want animations when dialog opening -->
-        <item name="android:windowEnterAnimation">@anim/fade_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_out</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
     </style>
 
 </resources>

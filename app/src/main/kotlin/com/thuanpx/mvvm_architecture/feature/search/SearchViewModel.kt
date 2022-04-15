@@ -43,7 +43,7 @@ class SearchViewModel @Inject constructor(
                 }
                 .flowOn(ioDispatcher)
                 .collect {
-                  pokemonInfo.emit(it)
+                    pokemonInfo.emit(it)
                 }
         }
     }

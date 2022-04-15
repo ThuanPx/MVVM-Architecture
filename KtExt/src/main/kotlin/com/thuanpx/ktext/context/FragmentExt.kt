@@ -8,7 +8,13 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.thuanpx.ktext.*
+import com.thuanpx.ktext.AnimationType
+import com.thuanpx.ktext.FADE
+import com.thuanpx.ktext.R
+import com.thuanpx.ktext.SLIDE_DOWN
+import com.thuanpx.ktext.SLIDE_LEFT
+import com.thuanpx.ktext.SLIDE_RIGHT
+import com.thuanpx.ktext.SLIDE_UP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

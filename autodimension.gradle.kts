@@ -1,9 +1,8 @@
 import org.w3c.dom.Element
 import org.w3c.dom.Node
-
 import javax.xml.parsers.DocumentBuilderFactory
 
-//How to use :  gradle generateDimen
+// How to use :  gradle generateDimen
 
 abstract class DimenFactory : DefaultTask() {
     @Input
@@ -62,7 +61,7 @@ abstract class DimenFactory : DefaultTask() {
                 }
             }
 
-            //Sort
+            // Sort
             val dpsSort = java.util.TreeMap(dps)
             val spsSort = java.util.TreeMap(sps)
             println(fXmlFile.absolutePath)
@@ -98,7 +97,6 @@ abstract class DimenFactory : DefaultTask() {
         } catch (e: Exception) {
             println(e.message)
         }
-
     }
 }
 
@@ -108,7 +106,3 @@ tasks.register<DimenFactory>("generateDimen") {
     maxSize = 1280
     dimenFileName = "values/dimens.xml"
 }
-
-//afterEvaluate {
-//    tasks["clean"].dependsOn("generateDimen")
-//}

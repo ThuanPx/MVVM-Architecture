@@ -49,7 +49,6 @@ sealed class ApiResponse<out T> {
             "[ApiResponse.Failure.Error-$statusCode](errorResponse=$response)(message=$message)"
     }
 
-
     companion object {
         /**
          * [Error] factory function. Only receives [Throwable] as an argument.

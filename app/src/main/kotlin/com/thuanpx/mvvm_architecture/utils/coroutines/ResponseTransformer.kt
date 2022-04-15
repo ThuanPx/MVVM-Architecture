@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.thuanpx.mvvm_architecture.utils.coroutines.coroutinesAdapter.SuspensionFunction
 import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
-import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.UnknownException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +17,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-
 
 /**
  * Returns a response callback from an onResult lambda.

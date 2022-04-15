@@ -33,7 +33,7 @@ inline fun FragmentActivity.launchAndRepeatWithViewLifecycle(
     crossinline block: suspend CoroutineScope.() -> Unit
 ) {
     lifecycleScope.launch {
-       repeatOnLifecycle(minActiveState) {
+        repeatOnLifecycle(minActiveState) {
             block()
         }
     }

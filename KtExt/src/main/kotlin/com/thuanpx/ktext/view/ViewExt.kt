@@ -1,6 +1,3 @@
-@file:JvmName("KtExtView")
-@file:JvmMultifileClass
-
 package com.thuanpx.ktext.view
 
 import android.content.Context

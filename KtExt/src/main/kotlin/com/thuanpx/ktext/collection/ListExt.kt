@@ -5,4 +5,4 @@ package com.thuanpx.ktext.collection
  */
 
 inline fun <reified T> List<T>?.equalsExt(listCompare: MutableList<T>?) = this?.size == listCompare?.size &&
-        this?.containsAll(listCompare ?: mutableListOf()) == true
+    this?.containsAll(listCompare ?: mutableListOf()) == true

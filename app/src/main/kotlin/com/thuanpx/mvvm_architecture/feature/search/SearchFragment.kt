@@ -2,7 +2,6 @@ package com.thuanpx.mvvm_architecture.feature.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import com.thuanpx.ktext.context.launchAndRepeatWithViewLifecycle
 import com.thuanpx.mvvm_architecture.base.fragment.BaseFragment

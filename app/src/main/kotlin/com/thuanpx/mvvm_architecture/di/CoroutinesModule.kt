@@ -22,5 +22,4 @@ object CoroutinesModule {
     @MainDispatcher
     @Provides
     fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
 }

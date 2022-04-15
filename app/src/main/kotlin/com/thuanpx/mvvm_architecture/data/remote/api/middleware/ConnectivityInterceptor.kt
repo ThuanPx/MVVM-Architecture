@@ -5,9 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.thuanpx.mvvm_architecture.model.exception.NoConnectivityException
-import java.io.IOException
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 /**
  * Detect if the network not connected then throwing a [NoConnectivityException]
