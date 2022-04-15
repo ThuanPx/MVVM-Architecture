@@ -18,7 +18,6 @@ class PokemonDataSource(
     override val loading: MutableLiveData<Boolean> = isLoading
 
     override suspend fun requestMore(nextPage: Int): ApiResponse<BaseResponse<List<Pokemon>>> {
-        return  apiService.fetchPokemons(page = nextPage * 20)
+        return apiService.fetchPokemons(page = nextPage * 20)
     }
-
 }

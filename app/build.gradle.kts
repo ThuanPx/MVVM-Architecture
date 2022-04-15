@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import kotlin.collections.List
 
 plugins {
     id("com.android.application")
@@ -13,7 +12,7 @@ plugins {
 }
 
 buildscript {
-    apply(from = "../ktlint-custom-rules/ktlint.gradle.kts")
+    apply(from = "../ktlint.gradle.kts")
     apply(from = "../autodimension.gradle.kts")
 }
 
@@ -86,13 +85,20 @@ android {
 
     applicationVariants.all {
         val outputFileName = name +
-            "_versionName_${versionName}" +
-            "_versionCode_${versionCode}" +
+            "_versionName_$versionName" +
+            "_versionCode_$versionCode" +
             "_time_${SimpleDateFormat("HH_mm_dd_MM_yyyy").format(Calendar.getInstance().time)}.apk"
         outputs.all {
             val output = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
             output?.outputFileName = outputFileName
         }
+    }
+
+    // Encapsulates configurations for the main source set.
+    sourceSets.getByName("main") {
+        // Changes the directory for Java sources. The default directory is
+        // 'src/main/java'.
+        java.setSrcDirs(listOf("src/main/kotlin"))
     }
 }
 
@@ -107,11 +113,12 @@ kapt {
 }
 
 dependencies {
+    compileOnly("com.pinterest.ktlint:ktlint-core:0.45.2")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     // Kotlin Extension
     implementation(project((":KtExt")))
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.20")
     // App compat & design
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
@@ -128,7 +135,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.13.0")
+    implementation("com.github.bumptech.glide:glide:4.13.1")
     implementation("com.github.florent37:glidepalette:2.1.2")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
@@ -146,10 +153,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.activity:activity-ktx:1.6.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha06")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.40.5")
-    kapt("com.google.dagger:hilt-android-compiler:2.40")
+    implementation("com.google.dagger:hilt-android:2.41")
+    kapt("com.google.dagger:hilt-android-compiler:2.41")
     // Lottie
     implementation("com.airbnb.android:lottie:3.6.1")
     // DataStore

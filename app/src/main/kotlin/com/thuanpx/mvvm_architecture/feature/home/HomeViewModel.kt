@@ -5,14 +5,14 @@ import androidx.paging.cachedIn
 import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel
 import com.thuanpx.mvvm_architecture.data.repository.AppRepository
 import com.thuanpx.mvvm_architecture.di.IoDispatcher
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 /**
  * Created by ThuanPx on 8/8/20.
  */
-@HiltViewModel
+@HiltAndroidApp
 class HomeViewModel @Inject constructor(
     private val appRepository: AppRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -20,7 +20,4 @@ class HomeViewModel @Inject constructor(
 
     val pagingPokemonFlow = appRepository.fetchPokemon(isLoading)
         .cachedIn(viewModelScope)
-
-
 }
-

@@ -50,13 +50,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(MainViewMo
         bottomNavigationManager.addOrReplaceFragment(fragment = homeFragment)
         viewBinding.run {
             bottomNav.selectedItemId = R.id.tab1
-            bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.tab1 -> bottomNavigationManager.switchTab(tab = TAB1, fragment = homeFragment)
-                    R.id.tab2 -> bottomNavigationManager.switchTab(tab = TAB2, fragment = searchFragment)
+            bottomNav.setOnItemSelectedListener(
+                NavigationBarView.OnItemSelectedListener { item ->
+                    when (item.itemId) {
+                        R.id.tab1 -> bottomNavigationManager.switchTab(tab = TAB1, fragment = homeFragment)
+                        R.id.tab2 -> bottomNavigationManager.switchTab(tab = TAB2, fragment = searchFragment)
+                    }
+                    return@OnItemSelectedListener true
                 }
-                return@OnItemSelectedListener true
-            })
+            )
         }
     }
 

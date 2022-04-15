@@ -20,7 +20,6 @@ import javax.inject.Singleton
  * Created by ThuanPx on 4/1/22.
  */
 
-
 @InstallIn(SingletonComponent::class)
 @Module
 object DataStoreModule {

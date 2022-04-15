@@ -1,6 +1,3 @@
-@file:JvmName("KtExtStringJapanValidator")
-@file:JvmMultifileClass
-
 package com.thuanpx.ktext.string
 
 /**

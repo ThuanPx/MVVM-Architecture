@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.viewbinding.ViewBinding
-import com.thuanpx.ktext.boolean.isNotTrue
-import com.thuanpx.ktext.boolean.isTrue
 import com.thuanpx.mvvm_architecture.R
 import com.thuanpx.mvvm_architecture.base.BaseActivity
 import com.thuanpx.mvvm_architecture.base.viewmodel.BaseViewModel

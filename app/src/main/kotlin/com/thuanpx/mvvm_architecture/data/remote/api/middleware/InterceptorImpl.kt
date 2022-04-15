@@ -33,7 +33,7 @@ class InterceptorImpl @Inject constructor(
             .header("Accept", "application/json")
             .addHeader("Cache-Control", "no-cache")
             .addHeader("Cache-Control", "no-store")
-             .addHeader(KEY_TOKEN, TOKEN_TYPE + token)
+            .addHeader(KEY_TOKEN, TOKEN_TYPE + token)
             .method(originRequest.method, originRequest.body)
     }
 

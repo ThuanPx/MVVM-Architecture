@@ -10,13 +10,10 @@ import com.thuanpx.mvvm_architecture.utils.coroutines.suspendOnSuccessAutoError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
-
 
 /**
  * Created by ThuanPx on 4/3/22.
@@ -33,8 +30,8 @@ abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
 
     private var apiResponse: MutableSharedFlow<ApiResponse<BaseResponse<List<T>>>>? = null
 
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
+
         val pageNumber = params.key ?: STARTING_PAGE_INDEX
 
         return try {
@@ -50,7 +47,6 @@ abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
 
                         // data, we return `null` to signify no more pages should be loaded
                         nextKey = if (items.isNotEmpty()) pageNumber + 1 else null
-
                     }
             }
                 .loading(loading)

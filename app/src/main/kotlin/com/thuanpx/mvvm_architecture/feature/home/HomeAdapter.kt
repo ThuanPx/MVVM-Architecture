@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
-import com.thuanpx.ktext.glide.loadImageUrl
 import com.thuanpx.mvvm_architecture.databinding.ItemPokemonBinding
 import com.thuanpx.mvvm_architecture.feature.home.HomeAdapter.ItemViewHolder
 import com.thuanpx.mvvm_architecture.model.entity.Pokemon
 import com.thuanpx.mvvm_architecture.model.entity.PokemonDiffCallback
-
 
 /**
  * Created by ThuanPx on 4/3/22.

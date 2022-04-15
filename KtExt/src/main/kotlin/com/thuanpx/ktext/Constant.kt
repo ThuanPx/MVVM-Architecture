@@ -4,8 +4,6 @@ package com.thuanpx.ktext
  * Created by ThuanPx on 5/21/20.
  */
 object Constant {
-    const val KTEXT_EXTRA_ARGS = "ktext_extra_args"
-
     /**
      * Date
      */

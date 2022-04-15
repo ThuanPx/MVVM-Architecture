@@ -2,4 +2,5 @@
 # see more at https://github.com/pinterest/ktlint#editorconfig
 root = true
 [*.{kt, kts}]
-disabled_rules=import-ordering
+# Comma-separated list of rules to disable
+disabled_rules=no-wildcard-imports

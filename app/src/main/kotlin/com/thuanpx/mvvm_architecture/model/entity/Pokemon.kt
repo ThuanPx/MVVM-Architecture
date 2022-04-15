@@ -16,7 +16,7 @@ data class Pokemon(
     }
 }
 
-object PokemonDiffCallback: DiffUtil.ItemCallback<Pokemon>() {
+object PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
     override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
         return oldItem == newItem
     }

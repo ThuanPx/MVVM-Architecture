@@ -4,10 +4,7 @@ import com.thuanpx.mvvm_architecture.model.entity.Pokemon
 import com.thuanpx.mvvm_architecture.model.entity.PokemonInfo
 import com.thuanpx.mvvm_architecture.model.response.BaseResponse
 import com.thuanpx.mvvm_architecture.utils.coroutines.ApiResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
