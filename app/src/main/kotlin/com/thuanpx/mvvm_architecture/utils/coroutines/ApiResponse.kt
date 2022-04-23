@@ -46,7 +46,7 @@ sealed class ApiResponse<out T> {
         val errorBody: ResponseBody? = response?.errorBody()
         val message: String = exception?.localizedMessage ?: response?.errorBody()?.string() ?: ""
         override fun toString(): String =
-            "[ApiResponse.Failure.Error-$statusCode](errorResponse=$response)(message=$message)"
+            "[ApiResponse.Error-$statusCode](errorResponse=$response)(message=$message)"
     }
 
     companion object {
@@ -55,7 +55,7 @@ sealed class ApiResponse<out T> {
          *
          * @param ex A throwable.
          *
-         * @return A [ApiResponse.Failure.Exception] based on the throwable.
+         * @return A [ApiResponse.Error] based on the throwable.
          */
         fun <T> error(ex: Throwable): Error<T> = Error(response = null, exception = ex)
 
@@ -65,8 +65,7 @@ sealed class ApiResponse<out T> {
          * @param successCodeRange A success code range for determining the response is successful or failure.
          * @param [f] Create [ApiResponse] from [retrofit2.Response] returning from the block.
          * If [retrofit2.Response] has no errors, it creates [ApiResponse.Success].
-         * If [retrofit2.Response] has errors, it creates [ApiResponse.Failure.Error].
-         * If [retrofit2.Response] has occurred exceptions, it creates [ApiResponse.Failure.Exception].
+         * If [retrofit2.Response] has errors, it creates [ApiResponse.Error].
          *
          * @return An [ApiResponse] model which holds information about the response.
          */

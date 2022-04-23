@@ -6,7 +6,7 @@ import com.thuanpx.mvvm_architecture.BuildConfig
 import com.thuanpx.mvvm_architecture.data.local.datastore.PreferenceDataStore
 import com.thuanpx.mvvm_architecture.data.remote.api.ApiService
 import com.thuanpx.mvvm_architecture.data.remote.api.middleware.InterceptorImpl
-import com.thuanpx.mvvm_architecture.utils.coroutines.coroutinesAdapter.CoroutinesResponseCallAdapterFactory
+import com.thuanpx.mvvm_architecture.utils.coroutines.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +34,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.END_POINT)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }

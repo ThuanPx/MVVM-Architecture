@@ -10,7 +10,6 @@ dependencies {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
         }
     }
-    // ktlint(project(":custom-ktlint-ruleset")) // in case of custom ruleset
 }
 
 val outputDir = "${project.buildDir}/reports/ktlint/"

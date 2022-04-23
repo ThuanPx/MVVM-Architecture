@@ -2,7 +2,7 @@ package com.thuanpx.mvvm_architecture.utils.coroutines
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.thuanpx.mvvm_architecture.utils.coroutines.coroutinesAdapter.SuspensionFunction
+import com.thuanpx.mvvm_architecture.utils.coroutines.adapters.internal.SuspensionFunction
 import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
