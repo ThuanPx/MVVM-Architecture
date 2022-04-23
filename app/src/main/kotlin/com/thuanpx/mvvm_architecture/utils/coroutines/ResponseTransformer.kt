@@ -179,22 +179,6 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnSuccessAutoError(
 }
 
 /**
- * A suspension function that would be executed for handling error responses if the request failed or get an exception.
- *
- * @param onResult The receiver function that receiving [ApiResponse.Error] if the request failed or get an exception.
- *
- * @return The original [ApiResponse].
- */
-@JvmSynthetic
-@SuspensionFunction
-public suspend inline fun <T> ApiResponse<T>.suspendOnError(
-    crossinline onResult: suspend String.() -> Unit
-): ApiResponse<T> {
-    suspendOnException { onResult(message()) }
-    return this
-}
-
-/**
  * A scope function that would be executed for handling exception responses if the request get an exception.
  *
  * @param onResult The receiver function that receiving [ApiResponse.Error] if the request get an exception.
@@ -220,7 +204,7 @@ public inline fun <T> ApiResponse<T>.onError(
  */
 @JvmSynthetic
 @SuspensionFunction
-public suspend inline fun <T> ApiResponse<T>.suspendOnException(
+public suspend inline fun <T> ApiResponse<T>.suspendOnError(
     crossinline onResult: suspend ApiResponse.Error<T>.() -> Unit
 ): ApiResponse<T> {
     if (this is ApiResponse.Error) {
@@ -265,7 +249,7 @@ public suspend inline fun <T> ApiResponse<T>.suspendOnProcedure(
     crossinline onException: suspend ApiResponse.Error<T>.() -> Unit
 ): ApiResponse<T> = apply {
     this.suspendOnSuccess(onSuccess)
-    this.suspendOnException(onException)
+    this.suspendOnError(onException)
 }
 
 /**

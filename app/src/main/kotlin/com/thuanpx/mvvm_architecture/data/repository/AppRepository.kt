@@ -12,7 +12,9 @@ import com.thuanpx.mvvm_architecture.model.entity.PokemonInfo
 import com.thuanpx.mvvm_architecture.utils.coroutines.dataOrException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -34,6 +36,7 @@ class DefaultAppRepository @Inject constructor(
             config = PagingConfig(20, enablePlaceholders = false),
             pagingSourceFactory = { PokemonDataSource(apiService, isLoading) }
         ).flow
+            .catch { Timber.i("thuan123 $it") }
     }
 
     override fun fetchPokemonInfo(query: String): Flow<PokemonInfo> {
