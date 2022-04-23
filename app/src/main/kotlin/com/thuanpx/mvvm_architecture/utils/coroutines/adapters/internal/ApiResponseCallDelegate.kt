@@ -1,4 +1,4 @@
-package com.thuanpx.mvvm_architecture.utils.coroutines.coroutinesAdapter
+package com.thuanpx.mvvm_architecture.utils.coroutines.adapters.internal
 
 import com.thuanpx.mvvm_architecture.utils.coroutines.ApiResponse
 import retrofit2.Call
@@ -6,6 +6,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /**
+ * @author skydoves (Jaewoong Eum)
+ *
  * ApiResponseCallDelegate is a delegate [Call] proxy for handling and transforming normal generic type [T]
  * as [ApiResponse] that wrapping [T] data from the network responses.
  */
@@ -23,6 +25,12 @@ internal class ApiResponseCallDelegate<T>(proxy: Call<T>) : CallDelegate<T, ApiR
             }
         }
     )
+
+    override fun executeImpl(): Response<ApiResponse<T>> {
+        val response = proxy.execute()
+        val apiResponse = ApiResponse.of { response }
+        return Response.success(apiResponse)
+    }
 
     override fun cloneImpl() = ApiResponseCallDelegate(proxy.clone())
 }

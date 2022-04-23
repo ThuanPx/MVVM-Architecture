@@ -93,13 +93,6 @@ android {
             output?.outputFileName = outputFileName
         }
     }
-
-    // Encapsulates configurations for the main source set.
-    sourceSets.getByName("main") {
-        // Changes the directory for Java sources. The default directory is
-        // 'src/main/java'.
-        java.setSrcDirs(listOf("src/main/kotlin"))
-    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -153,7 +146,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.activity:activity-ktx:1.6.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha06")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-beta01")
     // Hilt
     implementation("com.google.dagger:hilt-android:2.41")
     kapt("com.google.dagger:hilt-android-compiler:2.41")
