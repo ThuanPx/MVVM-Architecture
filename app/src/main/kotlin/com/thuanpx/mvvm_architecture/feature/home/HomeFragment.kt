@@ -2,9 +2,11 @@ package com.thuanpx.mvvm_architecture.feature.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.thuanpx.ktext.context.launchAndRepeatWithViewLifecycle
 import com.thuanpx.ktext.recyclerView.initRecyclerViewAdapter
+import com.thuanpx.mvvm_architecture.base.BaseActivity
 import com.thuanpx.mvvm_architecture.base.fragment.BaseFragment
 import com.thuanpx.mvvm_architecture.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +40,15 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewMo
                 launch {
                     pagingPokemonFlow.collectLatest {
                         homeAdapter?.submitData(it)
+                    }
+                }
+                launch {
+                    homeAdapter?.loadStateFlow?.collectLatest { loadStates ->
+                        if (loadStates.refresh is LoadState.Error) {
+                            (activity as? BaseActivity<*, *>)?.handleApiError(
+                                (loadStates.refresh as? LoadState.Error)?.error ?: return@collectLatest
+                            )
+                        }
                     }
                 }
             }

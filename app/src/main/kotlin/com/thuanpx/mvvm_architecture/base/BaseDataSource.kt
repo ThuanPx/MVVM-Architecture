@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 import com.thuanpx.ktext.flow.loading
 import com.thuanpx.mvvm_architecture.model.response.BaseResponse
 import com.thuanpx.mvvm_architecture.utils.coroutines.ApiResponse
+import com.thuanpx.mvvm_architecture.utils.coroutines.exceptions.ErrorResponse
 import com.thuanpx.mvvm_architecture.utils.coroutines.suspendOnSuccessAutoError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -63,6 +64,8 @@ abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
             return LoadResult.Error(e)
         } catch (e: HttpException) {
             // HttpException for any non-2xx HTTP status codes.
+            return LoadResult.Error(e)
+        } catch (e: ErrorResponse) {
             return LoadResult.Error(e)
         }
     }
