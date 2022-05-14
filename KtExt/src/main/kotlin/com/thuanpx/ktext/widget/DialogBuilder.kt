@@ -1,6 +1,5 @@
 package com.thuanpx.ktext.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.thuanpx.ktext.R
 import com.thuanpx.ktext.view.clicks
+import com.thuanpx.ktext.view.gone
 
 /**
  * Created by ThuanPx on 15/09/2021.
@@ -92,7 +92,6 @@ class DialogBuilder(
         return dialog
     }
 
-    @SuppressLint("InflateParams")
     private fun setupCustomAlertDialog(options: DialogOptions): AlertDialog {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null)
 
@@ -107,6 +106,7 @@ class DialogBuilder(
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         tvTitle.text = options.title
         tvTitle.setTextColor(ContextCompat.getColor(context, options.titleColor))
+        tvTitle.gone(isGone = options.title.isEmpty())
 
         val tvMessage = view.findViewById<TextView>(R.id.tvMessage)
         tvMessage.text = options.message

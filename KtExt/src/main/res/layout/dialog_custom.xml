@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:background="@color/blue_700">
+    tools:background="@color/cardview_dark_background">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="270dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:background="#F8F8F8"
-        android:minHeight="140dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="2dp"
+        android:background="@android:color/white"
+        app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,8 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="140dp">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
@@ -32,46 +29,39 @@
                 android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:includeFontPadding="false"
+                android:paddingHorizontal="10dp"
                 android:textColor="@android:color/black"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title" />
+                tools:text="Title"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvMessage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="3dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:paddingHorizontal="10dp"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                tools:text="Content" />
-
-            <View
-                android:id="@+id/viewSpace"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@android:color/transparent"
-                app:layout_constraintBottom_toTopOf="@id/view"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+                tools:text="Message Content" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#707070"
-                app:layout_constraintBottom_toTopOf="@id/btPositive" />
+                android:layout_marginTop="10dp"
+                android:background="#5C3C3C43"
+                app:layout_constraintBottom_toTopOf="@id/btPositive"
+                app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/btNegative"
@@ -91,7 +81,7 @@
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="0dp"
-                android:background="#707070"
+                android:background="#5C3C3C43"
                 app:layout_constraintBottom_toBottomOf="@id/btNegative"
                 app:layout_constraintLeft_toRightOf="@id/btNegative"
                 app:layout_constraintRight_toLeftOf="@id/btPositive"
@@ -106,14 +96,12 @@
                 android:includeFontPadding="false"
                 android:text="OK"
                 android:textColor="#007AFF"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btNegative" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

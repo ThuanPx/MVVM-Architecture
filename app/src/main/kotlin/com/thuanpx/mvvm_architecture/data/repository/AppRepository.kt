@@ -36,7 +36,6 @@ class DefaultAppRepository @Inject constructor(
             config = PagingConfig(20, enablePlaceholders = false),
             pagingSourceFactory = { PokemonDataSource(apiService, isLoading) }
         ).flow
-            .catch { Timber.i("thuan123 $it") }
     }
 
     override fun fetchPokemonInfo(query: String): Flow<PokemonInfo> {

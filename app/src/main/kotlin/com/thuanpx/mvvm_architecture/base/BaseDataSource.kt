@@ -29,8 +29,6 @@ abstract class BaseDataSource<T : Any> : PagingSource<Int, T>() {
     abstract suspend fun requestMore(nextPage: Int): ApiResponse<BaseResponse<List<T>>>
     abstract val loading: MutableLiveData<Boolean>
 
-    private var apiResponse: MutableSharedFlow<ApiResponse<BaseResponse<List<T>>>>? = null
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
 
         val pageNumber = params.key ?: STARTING_PAGE_INDEX
